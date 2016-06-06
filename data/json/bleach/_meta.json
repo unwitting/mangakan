@@ -1,0 +1,22 @@
+{
+  "series": "bleach",
+  "title": {
+    "en": "Bleach",
+    "jp": {
+      "common": "ブリーチ",
+      "kana": "ブリーチ"
+    }
+  },
+  "chapters": {
+    "1": {
+      "number": 1,
+      "title": {
+        "en": "Death & Strawberry",
+        "jp": {
+          "common": "デス・アンド・ストロベリー",
+          "kana": "デス・アンド・ストロベリー"
+        }
+      }
+    }
+  }
+}
