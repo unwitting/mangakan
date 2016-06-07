@@ -30931,17 +30931,21 @@
 	      return _react2.default.createElement(
 	        'div',
 	        { className: (0, _classnames2.default)(_page_scan2.default.pageScan) },
-	        _react2.default.createElement('img', { className: (0, _classnames2.default)(_page_scan2.default.image), src: imgUrl }),
-	        this.props.page.furigana.map(function (furigana, i) {
-	          return _react2.default.createElement(_furigana_blocker2.default, _extends({ key: 'furigana-blocker-' + i, furigana: furigana }, _this2.props));
-	        }),
-	        this.props.page.vocabSegments.map(function (vocabSegment, i) {
-	          return _react2.default.createElement(_vocab_segment_selector2.default, _extends({
-	            key: 'vocabSegment-selector-' + i,
-	            vocabIndex: i,
-	            vocabSegment: vocabSegment
-	          }, _this2.props));
-	        })
+	        _react2.default.createElement(
+	          'div',
+	          { className: (0, _classnames2.default)(_page_scan2.default.sizeWrapper) },
+	          _react2.default.createElement('img', { className: (0, _classnames2.default)(_page_scan2.default.image), src: imgUrl }),
+	          this.props.page.furigana.map(function (furigana, i) {
+	            return _react2.default.createElement(_furigana_blocker2.default, _extends({ key: 'furigana-blocker-' + i, furigana: furigana }, _this2.props));
+	          }),
+	          this.props.page.vocabSegments.map(function (vocabSegment, i) {
+	            return _react2.default.createElement(_vocab_segment_selector2.default, _extends({
+	              key: 'vocabSegment-selector-' + i,
+	              vocabIndex: i,
+	              vocabSegment: vocabSegment
+	            }, _this2.props));
+	          })
+	        )
 	      );
 	    }
 	  }]);
@@ -31106,7 +31110,7 @@
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
-	module.exports = {"pageScan":"page_scan__pageScan___1eWuU","image":"page_scan__image___dNoWn"};
+	module.exports = {"pageScan":"page_scan__pageScan___1eWuU","sizeWrapper":"page_scan__sizeWrapper___1Zh7O","image":"page_scan__image___dNoWn"};
 
 /***/ }
 /******/ ]);

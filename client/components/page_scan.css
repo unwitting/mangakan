@@ -1,7 +1,9 @@
 .pageScan {
   flex: 1;
-  position: relative;
   border-right: 1px solid rgb(200, 200, 200);
+}
+.sizeWrapper {
+  position: relative;
 }
 .image {
   width: 100%;

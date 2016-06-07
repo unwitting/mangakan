@@ -139,8 +139,10 @@
 }
 .page_scan__pageScan___1eWuU {
   flex: 1;
-  position: relative;
   border-right: 1px solid rgb(200, 200, 200);
+}
+.page_scan__sizeWrapper___1Zh7O {
+  position: relative;
 }
 .page_scan__image___dNoWn {
   width: 100%;
