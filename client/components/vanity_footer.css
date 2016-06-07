@@ -1,0 +1,12 @@
+.vanityFooter {
+  width: 100%;
+  padding: 1rem;
+  text-align: right;
+  font-weight: 300;
+  font-size: 0.8rem;
+}
+
+.link {
+  color: inherit;
+  font-weight: 500;
+}

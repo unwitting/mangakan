@@ -1,0 +1,147 @@
+@import url(https://fonts.googleapis.com/css?family=Noto+Sans);@import url(http://fonts.googleapis.com/earlyaccess/notosansjapanese.css);.app__app___1MFSU {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+.reader__reader___2zFp8 {
+  display: flex;
+}
+.furigana_toggler__furiganaToggler___3HTtV {
+  padding: 0.5rem;
+  width: 100%;
+  background-color: inherit;
+  font: inherit;
+  color: inherit;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid rgb(200, 200, 200);
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.1s linear;
+}
+
+.furigana_toggler__furiganaToggler___3HTtV:hover {
+  background-color: rgb(247, 247, 247);
+}
+.info_header__infoHeader___2eh49 {
+  padding: 1rem;
+  border-bottom: 1px solid rgb(200, 200, 200);
+  text-align: right;
+}
+
+.info_header__header___37JnH {
+  font-weight: 200;
+}
+
+.info_header__subJp___1Bjlq {
+  font-size: 0.6em;
+  margin-left: 0.4rem;
+}
+
+.info_header__pageTitle___RbCpa {
+  margin-top: 1rem;
+}
+.vanity_footer__vanityFooter___3i2lx {
+  width: 100%;
+  padding: 1rem;
+  text-align: right;
+  font-weight: 300;
+  font-size: 0.8rem;
+}
+
+.vanity_footer__link___eTQWb {
+  color: inherit;
+  font-weight: 500;
+}
+.vocab_segment__vocabSegment___2miLR {
+  padding: 1rem;
+}
+
+.vocab_segment__jpCommon___2G2Aj {
+  font-weight: 500;
+}
+
+.vocab_segment__jpKana___1DZBU {
+  font-size: 1.1em;
+}
+
+.vocab_segment__translation___3AJRt {
+  margin-top: 0.5rem;
+  font-weight: 200;
+  font-size: 1.2em;
+}
+
+.vocab_segment__vocabList___3iR2a {
+  padding: 0;
+  padding-left: 1rem;
+}
+
+.vocab_segment__vocabElement___3zUZL {
+  list-style-type: none;
+}
+
+.vocab_segment__vocabElementKanji___3ijec, .vocab_segment__vocabElementJpCommon___1UZai {
+  font-weight: 300;
+  font-size: 1.4rem;
+  margin-right: 0.5rem;
+}
+.vocab_segment__vocabElementReading___2eh0I, .vocab_segment__vocabElementJpKana___dMvm3 {
+  font-weight: 200;
+  font-size: 1rem;
+}
+.vocab_segment__vocabElementMeaning___1rlqw {
+  font-weight: 200;
+  font-size: 1rem;
+  margin-left: 0.4rem;
+}
+
+.vocab_segment__notesTitle___3brql {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  font-weight: 300;
+}
+.vocab_segment__notes___XV9E2 {
+  padding: 0;
+}
+.vocab_segment__note___pBOIK {
+  margin-bottom: 0.5rem;
+  list-style-type: none;
+}
+.info_box__infoBox___3u9nh {
+  flex: 1;
+  font-family: 'Noto Sans Japanese', 'Noto Sans', sans-serif;
+  font-weight: 200;
+}
+.furigana_blocker__furiganaBlocker___2jZda {
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.1s linear;
+  border-radius: 3px;
+}
+.furigana_blocker__hidden___k49t8 {
+  opacity: 1;
+}
+.vocab_segment_selector__vocabSegmentSelector___1s8Zz {
+  position: absolute;
+  border-width: 2px;
+  border-style: solid;
+  opacity: 0;
+  transition: opacity 0.1s linear;
+  cursor: pointer;
+  border-radius: 3px;
+}
+.vocab_segment_selector__vocabSegmentSelector___1s8Zz:hover:not(.vocab_segment_selector__selected___1nOJm) {
+  opacity: 0.4;
+}
+.vocab_segment_selector__selected___1nOJm {
+  opacity: 1;
+}
+.page_scan__pageScan___1eWuU {
+  flex: 1;
+  position: relative;
+  border-right: 1px solid rgb(200, 200, 200);
+}
+.page_scan__image___dNoWn {
+  width: 100%;
+}

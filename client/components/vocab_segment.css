@@ -1,0 +1,54 @@
+.vocabSegment {
+  padding: 1rem;
+}
+
+.jpCommon {
+  font-weight: 500;
+}
+
+.jpKana {
+  font-size: 1.1em;
+}
+
+.translation {
+  margin-top: 0.5rem;
+  font-weight: 200;
+  font-size: 1.2em;
+}
+
+.vocabList {
+  padding: 0;
+  padding-left: 1rem;
+}
+
+.vocabElement {
+  list-style-type: none;
+}
+
+.vocabElementKanji, .vocabElementJpCommon {
+  font-weight: 300;
+  font-size: 1.4rem;
+  margin-right: 0.5rem;
+}
+.vocabElementReading, .vocabElementJpKana {
+  font-weight: 200;
+  font-size: 1rem;
+}
+.vocabElementMeaning {
+  font-weight: 200;
+  font-size: 1rem;
+  margin-left: 0.4rem;
+}
+
+.notesTitle {
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  font-weight: 300;
+}
+.notes {
+  padding: 0;
+}
+.note {
+  margin-bottom: 0.5rem;
+  list-style-type: none;
+}

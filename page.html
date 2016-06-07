@@ -3,8 +3,25 @@
 
   <head>
 
-    <script src="/static/js/jquery-2.2.4.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="/static/css/page.css">
+    <title>Mangakan beta</title>
+
+    <link rel="stylesheet" type="text/css" href="/static/css/client.css">
+
+    <style>
+    html, body, #react-mountpoint {
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      margin: 0;
+    }
+    h1, h2, h3, h4, h5, h6, p {
+      margin: 0;
+      padding: 0;
+    }
+    * {
+      box-sizing: border-box;
+    }
+    </style>
 
     <script>
     window.metaJson = "{{metaJson}}";
@@ -14,47 +31,9 @@
   </head>
 
   <body>
-    <div class="page">
+    <div id="react-mountpoint"></div>
+    <script src="/static/js/client.js"></script>
 
-      <div class="scan"><img src="/data/images/{{meta.series}}/{{page.image}}"></img></div>
-
-      <div class="info">
-
-        <header>
-          <h1 class="series-title">
-            {{meta.title.en}}
-            <span class="jp">{{meta.title.jp.common}}</span>
-          </h1>
-          <h2 class="chapter-title">
-            Chapter {{page.chapter}}: {{meta.chapters[page.chapter].title.en}}
-            <span class="jp">{{meta.chapters[page.chapter].title.jp.common}}</span>
-          </h2>
-          <h2 class="page-title">
-            Page {{page.page}}
-          </h2>
-        </header>
-
-        <label class="toggle-furigana">
-          <input type="checkbox"> Show / hide furigana
-        </label>
-
-        <div class="selected-vocab">
-          <h2 class="jp-common"></h2>
-          <p class="jp-kana"></p>
-          <p class="translation"></p>
-          <ul class="vocab-list"></ul>
-          <div class="notes"></div>
-        </div>
-
-        <div class="footer">
-          Made in Japan by Jack Preston. I'm also <a href="http://pressonegames.com/plurum" target="_blank">making a game</a> :)
-        </div>
-
-      </div>
-
-    </div>
-
-    <script src="/static/js/page.js"></script>
     <script>
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

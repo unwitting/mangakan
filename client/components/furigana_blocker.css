@@ -1,0 +1,9 @@
+.furiganaBlocker {
+  position: absolute;
+  opacity: 0;
+  transition: opacity 0.1s linear;
+  border-radius: 3px;
+}
+.hidden {
+  opacity: 1;
+}
