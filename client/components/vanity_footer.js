@@ -8,8 +8,9 @@ export default class VanityFooter extends React.Component {
   render() {
     return (
       <div className={classnames(c.vanityFooter)}>
-        Made in Japan by <a className={classnames(c.link)} href="//unwttng.com" target="_blank">Jack Preston</a>.
+        {this.props.app.props.version} made in Japan by <a className={classnames(c.link)} href="//unwttng.com" target="_blank">Jack Preston</a>.
         I'm also <a className={classnames(c.link)} href="http://pressonegames.com/plurum" target="_blank">making a game</a> :)
+        <br />
       </div>
     )
   }

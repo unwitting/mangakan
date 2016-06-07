@@ -66,8 +66,9 @@
 
 	var meta = JSON.parse((0, _jquery2.default)('<span/>').html(window.metaJson).text());
 	var page = JSON.parse((0, _jquery2.default)('<span/>').html(window.pageJson).text());
+	var version = window.appVersion;
 
-	_reactDom2.default.render(_react2.default.createElement(_app2.default, { meta: meta, page: page }), document.getElementById('react-mountpoint'));
+	_reactDom2.default.render(_react2.default.createElement(_app2.default, { meta: meta, page: page, version: version }), document.getElementById('react-mountpoint'));
 
 /***/ },
 /* 1 */
@@ -30311,7 +30312,7 @@
 
 	var _info_box2 = _interopRequireDefault(_info_box);
 
-	var _page_scan = __webpack_require__(178);
+	var _page_scan = __webpack_require__(184);
 
 	var _page_scan2 = _interopRequireDefault(_page_scan);
 
@@ -30419,23 +30420,23 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _furigana_toggler = __webpack_require__(180);
+	var _furigana_toggler = __webpack_require__(175);
 
 	var _furigana_toggler2 = _interopRequireDefault(_furigana_toggler);
 
-	var _info_header = __webpack_require__(175);
+	var _info_header = __webpack_require__(177);
 
 	var _info_header2 = _interopRequireDefault(_info_header);
 
-	var _vanity_footer = __webpack_require__(182);
+	var _vanity_footer = __webpack_require__(179);
 
 	var _vanity_footer2 = _interopRequireDefault(_vanity_footer);
 
-	var _vocab_segment = __webpack_require__(184);
+	var _vocab_segment = __webpack_require__(181);
 
 	var _vocab_segment2 = _interopRequireDefault(_vocab_segment);
 
-	var _info_box = __webpack_require__(177);
+	var _info_box = __webpack_require__(183);
 
 	var _info_box2 = _interopRequireDefault(_info_box);
 
@@ -30495,7 +30496,78 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _info_header = __webpack_require__(176);
+	var _furigana_toggler = __webpack_require__(176);
+
+	var _furigana_toggler2 = _interopRequireDefault(_furigana_toggler);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var FuriganaToggler = function (_React$Component) {
+	  _inherits(FuriganaToggler, _React$Component);
+
+	  function FuriganaToggler() {
+	    _classCallCheck(this, FuriganaToggler);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(FuriganaToggler).apply(this, arguments));
+	  }
+
+	  _createClass(FuriganaToggler, [{
+	    key: 'handleClick',
+	    value: function handleClick() {
+	      this.props.reader.setState({ furiganaShown: !this.props.reader.state.furiganaShown });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var shown = this.props.reader.state.furiganaShown;
+	      return _react2.default.createElement(
+	        'button',
+	        { className: (0, _classnames2.default)(_furigana_toggler2.default.furiganaToggler), onClick: this.handleClick.bind(this) },
+	        shown ? 'Hide' : 'Show',
+	        ' furigana'
+	      );
+	    }
+	  }]);
+
+	  return FuriganaToggler;
+	}(_react2.default.Component);
+
+	exports.default = FuriganaToggler;
+
+/***/ },
+/* 176 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+	module.exports = {"furiganaToggler":"furigana_toggler__furiganaToggler___3HTtV"};
+
+/***/ },
+/* 177 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _classnames = __webpack_require__(170);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _info_header = __webpack_require__(178);
 
 	var _info_header2 = _interopRequireDefault(_info_header);
 
@@ -30563,108 +30635,14 @@
 	exports.default = InfoHeader;
 
 /***/ },
-/* 176 */
+/* 178 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 	module.exports = {"infoHeader":"info_header__infoHeader___2eh49","header":"info_header__header___37JnH","subJp":"info_header__subJp___1Bjlq","pageTitle":"info_header__pageTitle___RbCpa"};
 
 /***/ },
-/* 177 */
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-	module.exports = {"infoBox":"info_box__infoBox___3u9nh"};
-
-/***/ },
-/* 178 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _classnames = __webpack_require__(170);
-
-	var _classnames2 = _interopRequireDefault(_classnames);
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _furigana_blocker = __webpack_require__(186);
-
-	var _furigana_blocker2 = _interopRequireDefault(_furigana_blocker);
-
-	var _vocab_segment_selector = __webpack_require__(188);
-
-	var _vocab_segment_selector2 = _interopRequireDefault(_vocab_segment_selector);
-
-	var _page_scan = __webpack_require__(179);
-
-	var _page_scan2 = _interopRequireDefault(_page_scan);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var PageScan = function (_React$Component) {
-	  _inherits(PageScan, _React$Component);
-
-	  function PageScan() {
-	    _classCallCheck(this, PageScan);
-
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(PageScan).apply(this, arguments));
-	  }
-
-	  _createClass(PageScan, [{
-	    key: 'render',
-	    value: function render() {
-	      var _this2 = this;
-
-	      var imgUrl = '/data/images/' + this.props.meta.series + '/' + this.props.page.image;
-	      return _react2.default.createElement(
-	        'div',
-	        { className: (0, _classnames2.default)(_page_scan2.default.pageScan) },
-	        _react2.default.createElement('img', { className: (0, _classnames2.default)(_page_scan2.default.image), src: imgUrl }),
-	        this.props.page.furigana.map(function (furigana, i) {
-	          return _react2.default.createElement(_furigana_blocker2.default, _extends({ key: 'furigana-blocker-' + i, furigana: furigana }, _this2.props));
-	        }),
-	        this.props.page.vocabSegments.map(function (vocabSegment, i) {
-	          return _react2.default.createElement(_vocab_segment_selector2.default, _extends({
-	            key: 'vocabSegment-selector-' + i,
-	            vocabIndex: i,
-	            vocabSegment: vocabSegment
-	          }, _this2.props));
-	        })
-	      );
-	    }
-	  }]);
-
-	  return PageScan;
-	}(_react2.default.Component);
-
-	exports.default = PageScan;
-
-/***/ },
 /* 179 */
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-	module.exports = {"pageScan":"page_scan__pageScan___1eWuU","image":"page_scan__image___dNoWn"};
-
-/***/ },
-/* 180 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30683,78 +30661,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _furigana_toggler = __webpack_require__(181);
-
-	var _furigana_toggler2 = _interopRequireDefault(_furigana_toggler);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var FuriganaToggler = function (_React$Component) {
-	  _inherits(FuriganaToggler, _React$Component);
-
-	  function FuriganaToggler() {
-	    _classCallCheck(this, FuriganaToggler);
-
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(FuriganaToggler).apply(this, arguments));
-	  }
-
-	  _createClass(FuriganaToggler, [{
-	    key: 'handleClick',
-	    value: function handleClick() {
-	      this.props.reader.setState({ furiganaShown: !this.props.reader.state.furiganaShown });
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var shown = this.props.reader.state.furiganaShown;
-	      return _react2.default.createElement(
-	        'button',
-	        { className: (0, _classnames2.default)(_furigana_toggler2.default.furiganaToggler), onClick: this.handleClick.bind(this) },
-	        shown ? 'Hide' : 'Show',
-	        ' furigana'
-	      );
-	    }
-	  }]);
-
-	  return FuriganaToggler;
-	}(_react2.default.Component);
-
-	exports.default = FuriganaToggler;
-
-/***/ },
-/* 181 */
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-	module.exports = {"furiganaToggler":"furigana_toggler__furiganaToggler___3HTtV"};
-
-/***/ },
-/* 182 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _classnames = __webpack_require__(170);
-
-	var _classnames2 = _interopRequireDefault(_classnames);
-
-	var _react = __webpack_require__(2);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _vanity_footer = __webpack_require__(183);
+	var _vanity_footer = __webpack_require__(180);
 
 	var _vanity_footer2 = _interopRequireDefault(_vanity_footer);
 
@@ -30781,7 +30688,8 @@
 	      return _react2.default.createElement(
 	        'div',
 	        { className: (0, _classnames2.default)(_vanity_footer2.default.vanityFooter) },
-	        'Made in Japan by ',
+	        this.props.app.props.version,
+	        ' made in Japan by ',
 	        _react2.default.createElement(
 	          'a',
 	          { className: (0, _classnames2.default)(_vanity_footer2.default.link), href: '//unwttng.com', target: '_blank' },
@@ -30793,7 +30701,8 @@
 	          { className: (0, _classnames2.default)(_vanity_footer2.default.link), href: 'http://pressonegames.com/plurum', target: '_blank' },
 	          'making a game'
 	        ),
-	        ' :)'
+	        ' :)',
+	        _react2.default.createElement('br', null)
 	      );
 	    }
 	  }]);
@@ -30804,14 +30713,14 @@
 	exports.default = VanityFooter;
 
 /***/ },
-/* 183 */
+/* 180 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 	module.exports = {"vanityFooter":"vanity_footer__vanityFooter___3i2lx","link":"vanity_footer__link___eTQWb"};
 
 /***/ },
-/* 184 */
+/* 181 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30830,7 +30739,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _vocab_segment = __webpack_require__(185);
+	var _vocab_segment = __webpack_require__(182);
 
 	var _vocab_segment2 = _interopRequireDefault(_vocab_segment);
 
@@ -30949,14 +30858,101 @@
 	exports.default = VocabSegment;
 
 /***/ },
-/* 185 */
+/* 182 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 	module.exports = {"vocabSegment":"vocab_segment__vocabSegment___2miLR","jpCommon":"vocab_segment__jpCommon___2G2Aj","jpKana":"vocab_segment__jpKana___1DZBU","translation":"vocab_segment__translation___3AJRt","vocabList":"vocab_segment__vocabList___3iR2a","vocabElement":"vocab_segment__vocabElement___3zUZL","vocabElementKanji":"vocab_segment__vocabElementKanji___3ijec","vocabElementJpCommon":"vocab_segment__vocabElementJpCommon___1UZai","vocabElementReading":"vocab_segment__vocabElementReading___2eh0I","vocabElementJpKana":"vocab_segment__vocabElementJpKana___dMvm3","vocabElementMeaning":"vocab_segment__vocabElementMeaning___1rlqw","notesTitle":"vocab_segment__notesTitle___3brql","notes":"vocab_segment__notes___XV9E2","note":"vocab_segment__note___pBOIK"};
 
 /***/ },
-/* 186 */
+/* 183 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+	module.exports = {"infoBox":"info_box__infoBox___3u9nh"};
+
+/***/ },
+/* 184 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _classnames = __webpack_require__(170);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _furigana_blocker = __webpack_require__(185);
+
+	var _furigana_blocker2 = _interopRequireDefault(_furigana_blocker);
+
+	var _vocab_segment_selector = __webpack_require__(187);
+
+	var _vocab_segment_selector2 = _interopRequireDefault(_vocab_segment_selector);
+
+	var _page_scan = __webpack_require__(189);
+
+	var _page_scan2 = _interopRequireDefault(_page_scan);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var PageScan = function (_React$Component) {
+	  _inherits(PageScan, _React$Component);
+
+	  function PageScan() {
+	    _classCallCheck(this, PageScan);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(PageScan).apply(this, arguments));
+	  }
+
+	  _createClass(PageScan, [{
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+
+	      var imgUrl = '/data/images/' + this.props.meta.series + '/' + this.props.page.image;
+	      return _react2.default.createElement(
+	        'div',
+	        { className: (0, _classnames2.default)(_page_scan2.default.pageScan) },
+	        _react2.default.createElement('img', { className: (0, _classnames2.default)(_page_scan2.default.image), src: imgUrl }),
+	        this.props.page.furigana.map(function (furigana, i) {
+	          return _react2.default.createElement(_furigana_blocker2.default, _extends({ key: 'furigana-blocker-' + i, furigana: furigana }, _this2.props));
+	        }),
+	        this.props.page.vocabSegments.map(function (vocabSegment, i) {
+	          return _react2.default.createElement(_vocab_segment_selector2.default, _extends({
+	            key: 'vocabSegment-selector-' + i,
+	            vocabIndex: i,
+	            vocabSegment: vocabSegment
+	          }, _this2.props));
+	        })
+	      );
+	    }
+	  }]);
+
+	  return PageScan;
+	}(_react2.default.Component);
+
+	exports.default = PageScan;
+
+/***/ },
+/* 185 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30975,7 +30971,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _furigana_blocker = __webpack_require__(187);
+	var _furigana_blocker = __webpack_require__(186);
 
 	var _furigana_blocker2 = _interopRequireDefault(_furigana_blocker);
 
@@ -31019,14 +31015,14 @@
 	exports.default = FuriganaBlocker;
 
 /***/ },
-/* 187 */
+/* 186 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 	module.exports = {"furiganaBlocker":"furigana_blocker__furiganaBlocker___2jZda","hidden":"furigana_blocker__hidden___k49t8"};
 
 /***/ },
-/* 188 */
+/* 187 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31045,7 +31041,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _vocab_segment_selector = __webpack_require__(189);
+	var _vocab_segment_selector = __webpack_require__(188);
 
 	var _vocab_segment_selector2 = _interopRequireDefault(_vocab_segment_selector);
 
@@ -31099,11 +31095,18 @@
 	exports.default = VocabSegmentSelector;
 
 /***/ },
-/* 189 */
+/* 188 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 	module.exports = {"vocabSegmentSelector":"vocab_segment_selector__vocabSegmentSelector___1s8Zz","selected":"vocab_segment_selector__selected___1nOJm"};
+
+/***/ },
+/* 189 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+	module.exports = {"pageScan":"page_scan__pageScan___1eWuU","image":"page_scan__image___dNoWn"};
 
 /***/ }
 /******/ ]);

@@ -1,6 +1,7 @@
 const express = require('express')
 const morgan = require('morgan')
 const nunjucks = require('nunjucks')
+const package = require('./package.json')
 
 const PORT = 8000
 const app = express()
@@ -25,7 +26,8 @@ app.get('/', (req, res) => {
   const metaJson = JSON.stringify(meta)
   const page = getPage('bleach', 1, 1)
   const pageJson = JSON.stringify(page)
-  res.render('page.html', {meta, metaJson, page, pageJson})
+  const appVersion = `${package.name} v${package.version}`
+  res.render('page.html', {meta, metaJson, page, pageJson, appVersion})
 })
 
 app.listen(PORT, () => {
