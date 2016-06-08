@@ -30168,8 +30168,6 @@
 	  value: true
 	});
 
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _classnames = __webpack_require__(170);
@@ -30199,19 +30197,31 @@
 	var App = function (_React$Component) {
 	  _inherits(App, _React$Component);
 
-	  function App() {
+	  function App(props) {
 	    _classCallCheck(this, App);
 
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(App).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(App).call(this, props));
+
+	    _this.state = {
+	      editMode: true,
+	      metaData: props.meta,
+	      pageData: props.page
+	    };
+	    return _this;
 	  }
 
 	  _createClass(App, [{
+	    key: 'toggleEditMode',
+	    value: function toggleEditMode() {
+	      this.setState({ editMode: !this.state.editMode });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'div',
 	        { className: (0, _classnames2.default)(_app2.default.app) },
-	        _react2.default.createElement(_reader2.default, _extends({ app: this }, this.props))
+	        _react2.default.createElement(_reader2.default, { app: this, meta: this.state.metaData, page: this.state.pageData })
 	      );
 	    }
 	  }]);
@@ -30312,7 +30322,7 @@
 
 	var _info_box2 = _interopRequireDefault(_info_box);
 
-	var _page_scan = __webpack_require__(184);
+	var _page_scan = __webpack_require__(186);
 
 	var _page_scan2 = _interopRequireDefault(_page_scan);
 
@@ -30420,23 +30430,27 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _furigana_toggler = __webpack_require__(175);
+	var _data_viewer = __webpack_require__(175);
+
+	var _data_viewer2 = _interopRequireDefault(_data_viewer);
+
+	var _furigana_toggler = __webpack_require__(177);
 
 	var _furigana_toggler2 = _interopRequireDefault(_furigana_toggler);
 
-	var _info_header = __webpack_require__(177);
+	var _info_header = __webpack_require__(179);
 
 	var _info_header2 = _interopRequireDefault(_info_header);
 
-	var _vanity_footer = __webpack_require__(179);
+	var _vanity_footer = __webpack_require__(181);
 
 	var _vanity_footer2 = _interopRequireDefault(_vanity_footer);
 
-	var _vocab_segment = __webpack_require__(181);
+	var _vocab_segment = __webpack_require__(183);
 
 	var _vocab_segment2 = _interopRequireDefault(_vocab_segment);
 
-	var _info_box = __webpack_require__(183);
+	var _info_box = __webpack_require__(185);
 
 	var _info_box2 = _interopRequireDefault(_info_box);
 
@@ -30496,7 +30510,76 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _furigana_toggler = __webpack_require__(176);
+	var _data_viewer = __webpack_require__(176);
+
+	var _data_viewer2 = _interopRequireDefault(_data_viewer);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var DataViewer = function (_React$Component) {
+	  _inherits(DataViewer, _React$Component);
+
+	  function DataViewer() {
+	    _classCallCheck(this, DataViewer);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(DataViewer).apply(this, arguments));
+	  }
+
+	  _createClass(DataViewer, [{
+	    key: 'render',
+	    value: function render() {
+
+	      return _react2.default.createElement(
+	        'div',
+	        { className: (0, _classnames2.default)(_data_viewer2.default.dataViewer) },
+	        _react2.default.createElement(
+	          'ul',
+	          null,
+	          'Furigana boxes'
+	        )
+	      );
+	    }
+	  }]);
+
+	  return DataViewer;
+	}(_react2.default.Component);
+
+	exports.default = DataViewer;
+
+/***/ },
+/* 176 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+	module.exports = {"dataViewer":"data_viewer__dataViewer___3JvY9"};
+
+/***/ },
+/* 177 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _classnames = __webpack_require__(170);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _furigana_toggler = __webpack_require__(178);
 
 	var _furigana_toggler2 = _interopRequireDefault(_furigana_toggler);
 
@@ -30541,14 +30624,14 @@
 	exports.default = FuriganaToggler;
 
 /***/ },
-/* 176 */
+/* 178 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 	module.exports = {"furiganaToggler":"furigana_toggler__furiganaToggler___3HTtV"};
 
 /***/ },
-/* 177 */
+/* 179 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30567,7 +30650,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _info_header = __webpack_require__(178);
+	var _info_header = __webpack_require__(180);
 
 	var _info_header2 = _interopRequireDefault(_info_header);
 
@@ -30589,10 +30672,16 @@
 	  }
 
 	  _createClass(InfoHeader, [{
+	    key: 'handleEditButtonClick',
+	    value: function handleEditButtonClick() {
+	      this.props.app.toggleEditMode();
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var meta = this.props.meta;
 	      var page = this.props.page;
+	      var editMode = this.props.app.state.editMode;
 	      return _react2.default.createElement(
 	        'div',
 	        { className: (0, _classnames2.default)(_info_header2.default.infoHeader) },
@@ -30623,7 +30712,12 @@
 	          'h2',
 	          { className: (0, _classnames2.default)(_info_header2.default.header, _info_header2.default.pageTitle) },
 	          'Page ',
-	          page.page
+	          page.page,
+	          _react2.default.createElement(
+	            'button',
+	            { className: (0, _classnames2.default)(_info_header2.default.subControl), onClick: this.handleEditButtonClick.bind(this) },
+	            editMode ? 'View mode' : 'Edit mode'
+	          )
 	        )
 	      );
 	    }
@@ -30635,14 +30729,14 @@
 	exports.default = InfoHeader;
 
 /***/ },
-/* 178 */
+/* 180 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
-	module.exports = {"infoHeader":"info_header__infoHeader___2eh49","header":"info_header__header___37JnH","subJp":"info_header__subJp___1Bjlq","pageTitle":"info_header__pageTitle___RbCpa"};
+	module.exports = {"infoHeader":"info_header__infoHeader___2eh49","header":"info_header__header___37JnH","subJp":"info_header__subJp___1Bjlq","pageTitle":"info_header__pageTitle___RbCpa","subControl":"info_header__subControl___3kzS9"};
 
 /***/ },
-/* 179 */
+/* 181 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30661,7 +30755,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _vanity_footer = __webpack_require__(180);
+	var _vanity_footer = __webpack_require__(182);
 
 	var _vanity_footer2 = _interopRequireDefault(_vanity_footer);
 
@@ -30713,14 +30807,14 @@
 	exports.default = VanityFooter;
 
 /***/ },
-/* 180 */
+/* 182 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 	module.exports = {"vanityFooter":"vanity_footer__vanityFooter___3i2lx","link":"vanity_footer__link___eTQWb"};
 
 /***/ },
-/* 181 */
+/* 183 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30739,7 +30833,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _vocab_segment = __webpack_require__(182);
+	var _vocab_segment = __webpack_require__(184);
 
 	var _vocab_segment2 = _interopRequireDefault(_vocab_segment);
 
@@ -30858,21 +30952,21 @@
 	exports.default = VocabSegment;
 
 /***/ },
-/* 182 */
+/* 184 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 	module.exports = {"vocabSegment":"vocab_segment__vocabSegment___2miLR","jpCommon":"vocab_segment__jpCommon___2G2Aj","jpKana":"vocab_segment__jpKana___1DZBU","translation":"vocab_segment__translation___3AJRt","vocabList":"vocab_segment__vocabList___3iR2a","vocabElement":"vocab_segment__vocabElement___3zUZL","vocabElementKanji":"vocab_segment__vocabElementKanji___3ijec","vocabElementJpCommon":"vocab_segment__vocabElementJpCommon___1UZai","vocabElementReading":"vocab_segment__vocabElementReading___2eh0I","vocabElementJpKana":"vocab_segment__vocabElementJpKana___dMvm3","vocabElementMeaning":"vocab_segment__vocabElementMeaning___1rlqw","notesTitle":"vocab_segment__notesTitle___3brql","notes":"vocab_segment__notes___XV9E2","note":"vocab_segment__note___pBOIK"};
 
 /***/ },
-/* 183 */
+/* 185 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 	module.exports = {"infoBox":"info_box__infoBox___3u9nh"};
 
 /***/ },
-/* 184 */
+/* 186 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30893,15 +30987,15 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _furigana_blocker = __webpack_require__(185);
+	var _furigana_blocker = __webpack_require__(187);
 
 	var _furigana_blocker2 = _interopRequireDefault(_furigana_blocker);
 
-	var _vocab_segment_selector = __webpack_require__(187);
+	var _vocab_segment_selector = __webpack_require__(189);
 
 	var _vocab_segment_selector2 = _interopRequireDefault(_vocab_segment_selector);
 
-	var _page_scan = __webpack_require__(189);
+	var _page_scan = __webpack_require__(191);
 
 	var _page_scan2 = _interopRequireDefault(_page_scan);
 
@@ -30956,7 +31050,7 @@
 	exports.default = PageScan;
 
 /***/ },
-/* 185 */
+/* 187 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30975,7 +31069,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _furigana_blocker = __webpack_require__(186);
+	var _furigana_blocker = __webpack_require__(188);
 
 	var _furigana_blocker2 = _interopRequireDefault(_furigana_blocker);
 
@@ -31019,14 +31113,14 @@
 	exports.default = FuriganaBlocker;
 
 /***/ },
-/* 186 */
+/* 188 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 	module.exports = {"furiganaBlocker":"furigana_blocker__furiganaBlocker___2jZda","hidden":"furigana_blocker__hidden___k49t8"};
 
 /***/ },
-/* 187 */
+/* 189 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31045,7 +31139,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _vocab_segment_selector = __webpack_require__(188);
+	var _vocab_segment_selector = __webpack_require__(190);
 
 	var _vocab_segment_selector2 = _interopRequireDefault(_vocab_segment_selector);
 
@@ -31099,14 +31193,14 @@
 	exports.default = VocabSegmentSelector;
 
 /***/ },
-/* 188 */
+/* 190 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 	module.exports = {"vocabSegmentSelector":"vocab_segment_selector__vocabSegmentSelector___1s8Zz","selected":"vocab_segment_selector__selected___1nOJm"};
 
 /***/ },
-/* 189 */
+/* 191 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin

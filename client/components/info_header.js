@@ -5,9 +5,14 @@ import c from './info_header.css'
 
 export default class InfoHeader extends React.Component {
 
+  handleEditButtonClick() {
+    this.props.app.toggleEditMode()
+  }
+
   render() {
     const meta = this.props.meta
     const page = this.props.page
+    const editMode = this.props.app.state.editMode
     return (
       <div className={classnames(c.infoHeader)}>
 
@@ -23,6 +28,9 @@ export default class InfoHeader extends React.Component {
 
         <h2 className={classnames(c.header, c.pageTitle)}>
           Page {page.page}
+          <button className={classnames(c.subControl)} onClick={this.handleEditButtonClick.bind(this)}>
+            {editMode ? 'View mode' : 'Edit mode'}
+          </button>
         </h2>
 
       </div>
