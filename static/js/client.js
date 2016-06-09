@@ -30712,12 +30712,7 @@
 	          'h2',
 	          { className: (0, _classnames2.default)(_info_header2.default.header, _info_header2.default.pageTitle) },
 	          'Page ',
-	          page.page,
-	          _react2.default.createElement(
-	            'button',
-	            { className: (0, _classnames2.default)(_info_header2.default.subControl), onClick: this.handleEditButtonClick.bind(this) },
-	            editMode ? 'View mode' : 'Edit mode'
-	          )
+	          page.page
 	        )
 	      );
 	    }

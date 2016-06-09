@@ -28,9 +28,9 @@ export default class InfoHeader extends React.Component {
 
         <h2 className={classnames(c.header, c.pageTitle)}>
           Page {page.page}
-          <button className={classnames(c.subControl)} onClick={this.handleEditButtonClick.bind(this)}>
+          {/*<button className={classnames(c.subControl)} onClick={this.handleEditButtonClick.bind(this)}>
             {editMode ? 'View mode' : 'Edit mode'}
-          </button>
+          </button>*/}
         </h2>
 
       </div>
