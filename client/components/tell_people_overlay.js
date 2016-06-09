@@ -6,7 +6,7 @@ import c from './tell_people_overlay.css'
 export default class TellPeopleOverlay extends React.Component {
 
   getTweetIntentUrl() {
-    const url = encodeURIComponent(`${location.protocol}//${location.hostname}`)
+    const url = encodeURIComponent(`${location.protocol}//${location.hostname}${location.pathname}`)
     const tags = encodeURIComponent(['mangakan', 'manga', 'learnjapanese', '日本語'].join(','))
     const related = encodeURIComponent(['unwttng'].join(','))
     const text = encodeURIComponent(`Mangakan - read manga, in Japanese, at your own pace`)

@@ -31336,7 +31336,7 @@
 	  _createClass(TellPeopleOverlay, [{
 	    key: 'getTweetIntentUrl',
 	    value: function getTweetIntentUrl() {
-	      var url = encodeURIComponent(location.protocol + '//' + location.hostname);
+	      var url = encodeURIComponent(location.protocol + '//' + location.hostname + location.pathname);
 	      var tags = encodeURIComponent(['mangakan', 'manga', 'learnjapanese', '日本語'].join(','));
 	      var related = encodeURIComponent(['unwttng'].join(','));
 	      var text = encodeURIComponent('Mangakan - read manga, in Japanese, at your own pace');
