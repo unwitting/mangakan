@@ -8,15 +8,17 @@ import c from './page_scan.css'
 export default class PageScan extends React.Component {
 
   render() {
-    const imgUrl = `/data/images/${this.props.meta.series}/${this.props.page.image}`
+    const meta = this.props.meta
+    const page = this.props.page
+    const imgUrl = `/data/images/${meta.series}/${page.chapter}_${page.page}.jpg`
     return (
       <div className={classnames(c.pageScan)}>
         <div className={classnames(c.sizeWrapper)}>
           <img className={classnames(c.image)} src={imgUrl} />
-          {this.props.page.furigana.map((furigana, i) => (
+          {page.furigana.map((furigana, i) => (
             <FuriganaBlocker key={`furigana-blocker-${i}`} furigana={furigana} {...this.props} />
           ))}
-          {this.props.page.vocabSegments.map((vocabSegment, i) => (
+          {page.vocabSegments.map((vocabSegment, i) => (
             <VocabSegmentSelector
               key={`vocabSegment-selector-${i}`}
               vocabIndex={i}

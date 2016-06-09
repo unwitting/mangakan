@@ -1,0 +1,13 @@
+.browser {
+  font-family: 'Noto Sans Japanese', 'Noto Sans', sans-serif;
+  font-weight: 200;
+  padding: 2rem;
+}
+
+.header {
+  font-weight: 300;
+}
+.subJp {
+  font-size: 0.65em;
+  margin-left: 0.4rem;
+}

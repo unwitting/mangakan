@@ -68,6 +68,10 @@
 
 	var _reader2 = _interopRequireDefault(_reader);
 
+	var _series_browser = __webpack_require__(255);
+
+	var _series_browser2 = _interopRequireDefault(_series_browser);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var version = window.appVersion;
@@ -78,7 +82,7 @@
 	  _react2.default.createElement(
 	    _reactRouter.Route,
 	    { path: '/', component: _app2.default },
-	    _react2.default.createElement(_reactRouter.Route, { path: ':series', component: null }),
+	    _react2.default.createElement(_reactRouter.Route, { path: ':series', component: _series_browser2.default, version: version }),
 	    _react2.default.createElement(_reactRouter.Route, { path: ':series/:chapter/:page', component: _reader2.default, version: version })
 	  )
 	), document.getElementById('react-mountpoint'));
@@ -36591,7 +36595,9 @@
 	    value: function render() {
 	      var _this2 = this;
 
-	      var imgUrl = '/data/images/' + this.props.meta.series + '/' + this.props.page.image;
+	      var meta = this.props.meta;
+	      var page = this.props.page;
+	      var imgUrl = '/data/images/' + meta.series + '/' + page.chapter + '_' + page.page + '.jpg';
 	      return _react2.default.createElement(
 	        'div',
 	        { className: (0, _classnames2.default)(_page_scan2.default.pageScan) },
@@ -36599,10 +36605,10 @@
 	          'div',
 	          { className: (0, _classnames2.default)(_page_scan2.default.sizeWrapper) },
 	          _react2.default.createElement('img', { className: (0, _classnames2.default)(_page_scan2.default.image), src: imgUrl }),
-	          this.props.page.furigana.map(function (furigana, i) {
+	          page.furigana.map(function (furigana, i) {
 	            return _react2.default.createElement(_furigana_blocker2.default, _extends({ key: 'furigana-blocker-' + i, furigana: furigana }, _this2.props));
 	          }),
-	          this.props.page.vocabSegments.map(function (vocabSegment, i) {
+	          page.vocabSegments.map(function (vocabSegment, i) {
 	            return _react2.default.createElement(_vocab_segment_selector2.default, _extends({
 	              key: 'vocabSegment-selector-' + i,
 	              vocabIndex: i,
@@ -36879,6 +36885,200 @@
 
 	// removed by extract-text-webpack-plugin
 	module.exports = {"overlay":"tell_people_overlay__overlay___2czdB","content":"tell_people_overlay__content___2jTuf","header":"tell_people_overlay__header___1TKqB","text":"tell_people_overlay__text___igx43","twitterButton":"tell_people_overlay__twitterButton___QkQZt"};
+
+/***/ },
+/* 255 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _classnames = __webpack_require__(231);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	var _jquery = __webpack_require__(1);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _chapter_view = __webpack_require__(256);
+
+	var _chapter_view2 = _interopRequireDefault(_chapter_view);
+
+	var _series_browser = __webpack_require__(258);
+
+	var _series_browser2 = _interopRequireDefault(_series_browser);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var SeriesBrowser = function (_React$Component) {
+	  _inherits(SeriesBrowser, _React$Component);
+
+	  function SeriesBrowser(props) {
+	    _classCallCheck(this, SeriesBrowser);
+
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(SeriesBrowser).call(this, props));
+
+	    _this.state = {
+	      seriesMetaData: null,
+	      version: props.route.version
+	    };
+	    return _this;
+	  }
+
+	  _createClass(SeriesBrowser, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _this2 = this;
+
+	      _jquery2.default.get('/api/' + this.props.params.series, function (res) {
+	        _this2.setState({ seriesMetaData: res.data.meta });
+	      });
+	    }
+	  }, {
+	    key: 'getChapters',
+	    value: function getChapters() {
+	      var meta = this.state.seriesMetaData;
+	      var chapters = [];
+	      for (var chapterI in meta.chapters) {
+	        meta.chapters[chapterI].number = chapterI;
+	        chapters.push(meta.chapters[chapterI]);
+	      }
+	      return chapters;
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var meta = this.state.seriesMetaData;
+	      var commonChildProps = {
+	        browser: this,
+	        meta: meta
+	      };
+	      return !!this.state.seriesMetaData ? _react2.default.createElement(
+	        'div',
+	        { className: (0, _classnames2.default)(_series_browser2.default.browser) },
+	        _react2.default.createElement(
+	          'h1',
+	          { className: (0, _classnames2.default)(_series_browser2.default.header, _series_browser2.default.seriesTitle) },
+	          meta.title.en,
+	          _react2.default.createElement(
+	            'span',
+	            { className: (0, _classnames2.default)(_series_browser2.default.subJp) },
+	            meta.title.jp.common,
+	            meta.title.jp.kana == meta.title.jp.common ? '' : '（' + meta.title.jp.kana + '）'
+	          )
+	        ),
+	        this.getChapters().map(function (chapter, i) {
+	          return _react2.default.createElement(_chapter_view2.default, { chapter: chapter, key: 'chapter-' + i });
+	        })
+	      ) : _react2.default.createElement('div', { className: (0, _classnames2.default)(_series_browser2.default.browser) });
+	    }
+	  }]);
+
+	  return SeriesBrowser;
+	}(_react2.default.Component);
+
+	exports.default = SeriesBrowser;
+
+/***/ },
+/* 256 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _classnames = __webpack_require__(231);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _chapter_view = __webpack_require__(257);
+
+	var _chapter_view2 = _interopRequireDefault(_chapter_view);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var ChapterView = function (_React$Component) {
+	  _inherits(ChapterView, _React$Component);
+
+	  function ChapterView() {
+	    _classCallCheck(this, ChapterView);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(ChapterView).apply(this, arguments));
+	  }
+
+	  _createClass(ChapterView, [{
+	    key: 'render',
+	    value: function render() {
+	      var chapter = this.props.chapter;
+	      return _react2.default.createElement(
+	        'div',
+	        { className: (0, _classnames2.default)(_chapter_view2.default.chapter) },
+	        _react2.default.createElement(
+	          'h2',
+	          { className: (0, _classnames2.default)(_chapter_view2.default.header, _chapter_view2.default.chapterTitle) },
+	          'Chapter ',
+	          chapter.number,
+	          ': ',
+	          chapter.title.en,
+	          _react2.default.createElement(
+	            'span',
+	            { className: (0, _classnames2.default)(_chapter_view2.default.subJp) },
+	            chapter.title.jp.common,
+	            chapter.title.jp.kana == chapter.title.jp.common ? '' : '（' + chapter.title.jp.kana + '）'
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return ChapterView;
+	}(_react2.default.Component);
+
+	exports.default = ChapterView;
+
+/***/ },
+/* 257 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+	module.exports = {"chapter":"chapter_view__chapter___y-j7y","header":"chapter_view__header___2Nyz_","subJp":"chapter_view__subJp___2LhZA"};
+
+/***/ },
+/* 258 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+	module.exports = {"browser":"series_browser__browser___1IuwE","header":"series_browser__header___xDoaV","subJp":"series_browser__subJp___7ycXH"};
 
 /***/ }
 /******/ ]);

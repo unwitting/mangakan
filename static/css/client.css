@@ -214,3 +214,27 @@
   transition: background-color 0.1s linear;
   text-decoration: none;
 }
+.chapter_view__chapter___y-j7y {
+  margin-top: 1rem;
+}
+
+.chapter_view__header___2Nyz_ {
+  font-weight: 300;
+}
+.chapter_view__subJp___2LhZA {
+  font-size: 0.65em;
+  margin-left: 0.4rem;
+}
+.series_browser__browser___1IuwE {
+  font-family: 'Noto Sans Japanese', 'Noto Sans', sans-serif;
+  font-weight: 200;
+  padding: 2rem;
+}
+
+.series_browser__header___xDoaV {
+  font-weight: 300;
+}
+.series_browser__subJp___7ycXH {
+  font-size: 0.65em;
+  margin-left: 0.4rem;
+}

@@ -29,9 +29,9 @@ function getMeta(series) {
   }
 }
 
-function genericPageServe(req, res) {
+function genericPageServe(req, res, socialImageUrl=null) {
   const appVersion = `${package.name} v${package.version}`
-  res.render('page.html', {appVersion})
+  res.render('page.html', {appVersion, socialImageUrl})
 }
 
 const getPageCache = {}
@@ -84,7 +84,9 @@ app.get('/api/:series/:chapter/:page', (req, res) => {
 
 // Routing is handled by react router, so just serve the same template to any
 // of these
-// app.get('/:series', genericPageServe)
-app.get('/:series/:chapter/:page', genericPageServe)
+app.get('/:series', genericPageServe)
+app.get('/:series/:chapter/:page', (req, res) => {
+  genericPageServe(req, res, `http://mangakan.unwttng.com/data/images/${req.params.series}/${req.params.chapter}_${req.params.page}.jpg`)
+})
 
 app.listen(PORT, () => log(`App started, listening on port ${colors.cyan(PORT)}`))
