@@ -31,7 +31,7 @@ export default class Reader extends React.Component {
   }
 
   deselectVocabSegments() {
-    for (const vocabSegment of this.props.page.vocabSegments) {
+    for (const vocabSegment of this.state.pageData.vocabSegments) {
       delete vocabSegment.selected
     }
     this.setState({selectedVocabSegment: null})
@@ -43,8 +43,8 @@ export default class Reader extends React.Component {
 
   selectVocabSegment(i) {
     this.deselectVocabSegments()
-    this.props.page.vocabSegments[i].selected = true
-    this.setState({selectedVocabSegment: this.props.page.vocabSegments[i]})
+    this.state.pageData.vocabSegments[i].selected = true
+    this.setState({selectedVocabSegment: this.state.pageData.vocabSegments[i]})
   }
 
   showTellPeopleOverlay() {

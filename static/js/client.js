@@ -35710,7 +35710,7 @@
 
 	var _reader2 = _interopRequireDefault(_reader);
 
-	var _tell_people_overlay = __webpack_require__(255);
+	var _tell_people_overlay = __webpack_require__(253);
 
 	var _tell_people_overlay2 = _interopRequireDefault(_tell_people_overlay);
 
@@ -35865,11 +35865,11 @@
 
 	var _info_box2 = _interopRequireDefault(_info_box);
 
-	var _page_scan = __webpack_require__(249);
+	var _page_scan = __webpack_require__(247);
 
 	var _page_scan2 = _interopRequireDefault(_page_scan);
 
-	var _tell_people_overlay = __webpack_require__(255);
+	var _tell_people_overlay = __webpack_require__(253);
 
 	var _tell_people_overlay2 = _interopRequireDefault(_tell_people_overlay);
 
@@ -35920,7 +35920,7 @@
 	      var _iteratorError = undefined;
 
 	      try {
-	        for (var _iterator = this.props.page.vocabSegments[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	        for (var _iterator = this.state.pageData.vocabSegments[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
 	          var vocabSegment = _step.value;
 
 	          delete vocabSegment.selected;
@@ -35951,8 +35951,8 @@
 	    key: 'selectVocabSegment',
 	    value: function selectVocabSegment(i) {
 	      this.deselectVocabSegments();
-	      this.props.page.vocabSegments[i].selected = true;
-	      this.setState({ selectedVocabSegment: this.props.page.vocabSegments[i] });
+	      this.state.pageData.vocabSegments[i].selected = true;
+	      this.setState({ selectedVocabSegment: this.state.pageData.vocabSegments[i] });
 	    }
 	  }, {
 	    key: 'showTellPeopleOverlay',
@@ -36009,23 +36009,23 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _furigana_toggler = __webpack_require__(238);
+	var _furigana_toggler = __webpack_require__(236);
 
 	var _furigana_toggler2 = _interopRequireDefault(_furigana_toggler);
 
-	var _info_header = __webpack_require__(240);
+	var _info_header = __webpack_require__(238);
 
 	var _info_header2 = _interopRequireDefault(_info_header);
 
-	var _vanity_footer = __webpack_require__(242);
+	var _vanity_footer = __webpack_require__(240);
 
 	var _vanity_footer2 = _interopRequireDefault(_vanity_footer);
 
-	var _vocab_segment = __webpack_require__(246);
+	var _vocab_segment = __webpack_require__(244);
 
 	var _vocab_segment2 = _interopRequireDefault(_vocab_segment);
 
-	var _info_box = __webpack_require__(248);
+	var _info_box = __webpack_require__(246);
 
 	var _info_box2 = _interopRequireDefault(_info_box);
 
@@ -36066,9 +36066,7 @@
 	exports.default = InfoBox;
 
 /***/ },
-/* 236 */,
-/* 237 */,
-/* 238 */
+/* 236 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -36087,7 +36085,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _furigana_toggler = __webpack_require__(239);
+	var _furigana_toggler = __webpack_require__(237);
 
 	var _furigana_toggler2 = _interopRequireDefault(_furigana_toggler);
 
@@ -36132,14 +36130,14 @@
 	exports.default = FuriganaToggler;
 
 /***/ },
-/* 239 */
+/* 237 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 	module.exports = {"furiganaToggler":"furigana_toggler__furiganaToggler___3HTtV"};
 
 /***/ },
-/* 240 */
+/* 238 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -36158,7 +36156,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _info_header = __webpack_require__(241);
+	var _info_header = __webpack_require__(239);
 
 	var _info_header2 = _interopRequireDefault(_info_header);
 
@@ -36226,14 +36224,14 @@
 	exports.default = InfoHeader;
 
 /***/ },
-/* 241 */
+/* 239 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 	module.exports = {"infoHeader":"info_header__infoHeader___2eh49","header":"info_header__header___37JnH","subJp":"info_header__subJp___1Bjlq","pageTitle":"info_header__pageTitle___RbCpa"};
 
 /***/ },
-/* 242 */
+/* 240 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -36252,11 +36250,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _tell_people_button = __webpack_require__(243);
+	var _tell_people_button = __webpack_require__(241);
 
 	var _tell_people_button2 = _interopRequireDefault(_tell_people_button);
 
-	var _vanity_footer = __webpack_require__(245);
+	var _vanity_footer = __webpack_require__(243);
 
 	var _vanity_footer2 = _interopRequireDefault(_vanity_footer);
 
@@ -36309,7 +36307,7 @@
 	exports.default = VanityFooter;
 
 /***/ },
-/* 243 */
+/* 241 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -36328,7 +36326,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _tell_people_button = __webpack_require__(244);
+	var _tell_people_button = __webpack_require__(242);
 
 	var _tell_people_button2 = _interopRequireDefault(_tell_people_button);
 
@@ -36372,21 +36370,21 @@
 	exports.default = TellPeopleButton;
 
 /***/ },
-/* 244 */
+/* 242 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 	module.exports = {"button":"tell_people_button__button___zzdyi"};
 
 /***/ },
-/* 245 */
+/* 243 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 	module.exports = {"vanityFooter":"vanity_footer__vanityFooter___3i2lx","link":"vanity_footer__link___eTQWb"};
 
 /***/ },
-/* 246 */
+/* 244 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -36405,7 +36403,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _vocab_segment = __webpack_require__(247);
+	var _vocab_segment = __webpack_require__(245);
 
 	var _vocab_segment2 = _interopRequireDefault(_vocab_segment);
 
@@ -36524,21 +36522,21 @@
 	exports.default = VocabSegment;
 
 /***/ },
-/* 247 */
+/* 245 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 	module.exports = {"vocabSegment":"vocab_segment__vocabSegment___2miLR","jpCommon":"vocab_segment__jpCommon___2G2Aj","jpKana":"vocab_segment__jpKana___1DZBU","translation":"vocab_segment__translation___3AJRt","vocabList":"vocab_segment__vocabList___3iR2a","vocabElement":"vocab_segment__vocabElement___3zUZL","vocabElementKanji":"vocab_segment__vocabElementKanji___3ijec","vocabElementJpCommon":"vocab_segment__vocabElementJpCommon___1UZai","vocabElementReading":"vocab_segment__vocabElementReading___2eh0I","vocabElementJpKana":"vocab_segment__vocabElementJpKana___dMvm3","vocabElementMeaning":"vocab_segment__vocabElementMeaning___1rlqw","notesTitle":"vocab_segment__notesTitle___3brql","notes":"vocab_segment__notes___XV9E2","note":"vocab_segment__note___pBOIK"};
 
 /***/ },
-/* 248 */
+/* 246 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 	module.exports = {"infoBox":"info_box__infoBox___3u9nh"};
 
 /***/ },
-/* 249 */
+/* 247 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -36559,15 +36557,15 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _furigana_blocker = __webpack_require__(250);
+	var _furigana_blocker = __webpack_require__(248);
 
 	var _furigana_blocker2 = _interopRequireDefault(_furigana_blocker);
 
-	var _vocab_segment_selector = __webpack_require__(252);
+	var _vocab_segment_selector = __webpack_require__(250);
 
 	var _vocab_segment_selector2 = _interopRequireDefault(_vocab_segment_selector);
 
-	var _page_scan = __webpack_require__(254);
+	var _page_scan = __webpack_require__(252);
 
 	var _page_scan2 = _interopRequireDefault(_page_scan);
 
@@ -36622,7 +36620,7 @@
 	exports.default = PageScan;
 
 /***/ },
-/* 250 */
+/* 248 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -36641,7 +36639,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _furigana_blocker = __webpack_require__(251);
+	var _furigana_blocker = __webpack_require__(249);
 
 	var _furigana_blocker2 = _interopRequireDefault(_furigana_blocker);
 
@@ -36685,14 +36683,14 @@
 	exports.default = FuriganaBlocker;
 
 /***/ },
-/* 251 */
+/* 249 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 	module.exports = {"furiganaBlocker":"furigana_blocker__furiganaBlocker___2jZda","hidden":"furigana_blocker__hidden___k49t8"};
 
 /***/ },
-/* 252 */
+/* 250 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -36711,7 +36709,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _vocab_segment_selector = __webpack_require__(253);
+	var _vocab_segment_selector = __webpack_require__(251);
 
 	var _vocab_segment_selector2 = _interopRequireDefault(_vocab_segment_selector);
 
@@ -36765,21 +36763,21 @@
 	exports.default = VocabSegmentSelector;
 
 /***/ },
-/* 253 */
+/* 251 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 	module.exports = {"vocabSegmentSelector":"vocab_segment_selector__vocabSegmentSelector___1s8Zz","selected":"vocab_segment_selector__selected___1nOJm"};
 
 /***/ },
-/* 254 */
+/* 252 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 	module.exports = {"pageScan":"page_scan__pageScan___1eWuU","sizeWrapper":"page_scan__sizeWrapper___1Zh7O","image":"page_scan__image___dNoWn"};
 
 /***/ },
-/* 255 */
+/* 253 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -36798,7 +36796,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _tell_people_overlay = __webpack_require__(256);
+	var _tell_people_overlay = __webpack_require__(254);
 
 	var _tell_people_overlay2 = _interopRequireDefault(_tell_people_overlay);
 
@@ -36876,7 +36874,7 @@
 	exports.default = TellPeopleOverlay;
 
 /***/ },
-/* 256 */
+/* 254 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
