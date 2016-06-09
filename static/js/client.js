@@ -30186,6 +30186,10 @@
 
 	var _reader2 = _interopRequireDefault(_reader);
 
+	var _tell_people_overlay = __webpack_require__(194);
+
+	var _tell_people_overlay2 = _interopRequireDefault(_tell_people_overlay);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -30203,7 +30207,8 @@
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(App).call(this, props));
 
 	    _this.state = {
-	      editMode: true,
+	      editMode: false,
+	      showingTellPeopleOverlay: false,
 	      metaData: props.meta,
 	      pageData: props.page
 	    };
@@ -30211,6 +30216,16 @@
 	  }
 
 	  _createClass(App, [{
+	    key: 'hideTellPeopleOverlay',
+	    value: function hideTellPeopleOverlay() {
+	      this.setState({ showingTellPeopleOverlay: false });
+	    }
+	  }, {
+	    key: 'showTellPeopleOverlay',
+	    value: function showTellPeopleOverlay() {
+	      this.setState({ showingTellPeopleOverlay: true });
+	    }
+	  }, {
 	    key: 'toggleEditMode',
 	    value: function toggleEditMode() {
 	      this.setState({ editMode: !this.state.editMode });
@@ -30221,7 +30236,8 @@
 	      return _react2.default.createElement(
 	        'div',
 	        { className: (0, _classnames2.default)(_app2.default.app) },
-	        _react2.default.createElement(_reader2.default, { app: this, meta: this.state.metaData, page: this.state.pageData })
+	        _react2.default.createElement(_reader2.default, { app: this, meta: this.state.metaData, page: this.state.pageData }),
+	        this.state.showingTellPeopleOverlay ? _react2.default.createElement(_tell_people_overlay2.default, { app: this, meta: this.state.metaData, page: this.state.pageData }) : null
 	      );
 	    }
 	  }]);
@@ -30322,7 +30338,7 @@
 
 	var _info_box2 = _interopRequireDefault(_info_box);
 
-	var _page_scan = __webpack_require__(186);
+	var _page_scan = __webpack_require__(188);
 
 	var _page_scan2 = _interopRequireDefault(_page_scan);
 
@@ -30446,11 +30462,11 @@
 
 	var _vanity_footer2 = _interopRequireDefault(_vanity_footer);
 
-	var _vocab_segment = __webpack_require__(183);
+	var _vocab_segment = __webpack_require__(185);
 
 	var _vocab_segment2 = _interopRequireDefault(_vocab_segment);
 
-	var _info_box = __webpack_require__(185);
+	var _info_box = __webpack_require__(187);
 
 	var _info_box2 = _interopRequireDefault(_info_box);
 
@@ -30750,7 +30766,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _vanity_footer = __webpack_require__(182);
+	var _tell_people_button = __webpack_require__(182);
+
+	var _tell_people_button2 = _interopRequireDefault(_tell_people_button);
+
+	var _vanity_footer = __webpack_require__(184);
 
 	var _vanity_footer2 = _interopRequireDefault(_vanity_footer);
 
@@ -30791,7 +30811,8 @@
 	          'making a game'
 	        ),
 	        ' :)',
-	        _react2.default.createElement('br', null)
+	        _react2.default.createElement('br', null),
+	        _react2.default.createElement(_tell_people_button2.default, this.props)
 	      );
 	    }
 	  }]);
@@ -30803,13 +30824,6 @@
 
 /***/ },
 /* 182 */
-/***/ function(module, exports) {
-
-	// removed by extract-text-webpack-plugin
-	module.exports = {"vanityFooter":"vanity_footer__vanityFooter___3i2lx","link":"vanity_footer__link___eTQWb"};
-
-/***/ },
-/* 183 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30828,7 +30842,84 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _vocab_segment = __webpack_require__(184);
+	var _tell_people_button = __webpack_require__(183);
+
+	var _tell_people_button2 = _interopRequireDefault(_tell_people_button);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var TellPeopleButton = function (_React$Component) {
+	  _inherits(TellPeopleButton, _React$Component);
+
+	  function TellPeopleButton() {
+	    _classCallCheck(this, TellPeopleButton);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(TellPeopleButton).apply(this, arguments));
+	  }
+
+	  _createClass(TellPeopleButton, [{
+	    key: 'handleClick',
+	    value: function handleClick() {
+	      this.props.app.showTellPeopleOverlay();
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+
+	      return _react2.default.createElement(
+	        'button',
+	        { className: (0, _classnames2.default)(_tell_people_button2.default.button), onClick: this.handleClick.bind(this) },
+	        'Tell people about Mangakan!'
+	      );
+	    }
+	  }]);
+
+	  return TellPeopleButton;
+	}(_react2.default.Component);
+
+	exports.default = TellPeopleButton;
+
+/***/ },
+/* 183 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+	module.exports = {"button":"tell_people_button__button___zzdyi"};
+
+/***/ },
+/* 184 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+	module.exports = {"vanityFooter":"vanity_footer__vanityFooter___3i2lx","link":"vanity_footer__link___eTQWb"};
+
+/***/ },
+/* 185 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _classnames = __webpack_require__(170);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _vocab_segment = __webpack_require__(186);
 
 	var _vocab_segment2 = _interopRequireDefault(_vocab_segment);
 
@@ -30947,21 +31038,21 @@
 	exports.default = VocabSegment;
 
 /***/ },
-/* 184 */
+/* 186 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 	module.exports = {"vocabSegment":"vocab_segment__vocabSegment___2miLR","jpCommon":"vocab_segment__jpCommon___2G2Aj","jpKana":"vocab_segment__jpKana___1DZBU","translation":"vocab_segment__translation___3AJRt","vocabList":"vocab_segment__vocabList___3iR2a","vocabElement":"vocab_segment__vocabElement___3zUZL","vocabElementKanji":"vocab_segment__vocabElementKanji___3ijec","vocabElementJpCommon":"vocab_segment__vocabElementJpCommon___1UZai","vocabElementReading":"vocab_segment__vocabElementReading___2eh0I","vocabElementJpKana":"vocab_segment__vocabElementJpKana___dMvm3","vocabElementMeaning":"vocab_segment__vocabElementMeaning___1rlqw","notesTitle":"vocab_segment__notesTitle___3brql","notes":"vocab_segment__notes___XV9E2","note":"vocab_segment__note___pBOIK"};
 
 /***/ },
-/* 185 */
+/* 187 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 	module.exports = {"infoBox":"info_box__infoBox___3u9nh"};
 
 /***/ },
-/* 186 */
+/* 188 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -30982,15 +31073,15 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _furigana_blocker = __webpack_require__(187);
+	var _furigana_blocker = __webpack_require__(189);
 
 	var _furigana_blocker2 = _interopRequireDefault(_furigana_blocker);
 
-	var _vocab_segment_selector = __webpack_require__(189);
+	var _vocab_segment_selector = __webpack_require__(191);
 
 	var _vocab_segment_selector2 = _interopRequireDefault(_vocab_segment_selector);
 
-	var _page_scan = __webpack_require__(191);
+	var _page_scan = __webpack_require__(193);
 
 	var _page_scan2 = _interopRequireDefault(_page_scan);
 
@@ -31045,7 +31136,7 @@
 	exports.default = PageScan;
 
 /***/ },
-/* 187 */
+/* 189 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31064,7 +31155,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _furigana_blocker = __webpack_require__(188);
+	var _furigana_blocker = __webpack_require__(190);
 
 	var _furigana_blocker2 = _interopRequireDefault(_furigana_blocker);
 
@@ -31108,14 +31199,14 @@
 	exports.default = FuriganaBlocker;
 
 /***/ },
-/* 188 */
+/* 190 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 	module.exports = {"furiganaBlocker":"furigana_blocker__furiganaBlocker___2jZda","hidden":"furigana_blocker__hidden___k49t8"};
 
 /***/ },
-/* 189 */
+/* 191 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -31134,7 +31225,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _vocab_segment_selector = __webpack_require__(190);
+	var _vocab_segment_selector = __webpack_require__(192);
 
 	var _vocab_segment_selector2 = _interopRequireDefault(_vocab_segment_selector);
 
@@ -31188,18 +31279,122 @@
 	exports.default = VocabSegmentSelector;
 
 /***/ },
-/* 190 */
+/* 192 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 	module.exports = {"vocabSegmentSelector":"vocab_segment_selector__vocabSegmentSelector___1s8Zz","selected":"vocab_segment_selector__selected___1nOJm"};
 
 /***/ },
-/* 191 */
+/* 193 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 	module.exports = {"pageScan":"page_scan__pageScan___1eWuU","sizeWrapper":"page_scan__sizeWrapper___1Zh7O","image":"page_scan__image___dNoWn"};
+
+/***/ },
+/* 194 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _classnames = __webpack_require__(170);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _tell_people_overlay = __webpack_require__(195);
+
+	var _tell_people_overlay2 = _interopRequireDefault(_tell_people_overlay);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var TellPeopleOverlay = function (_React$Component) {
+	  _inherits(TellPeopleOverlay, _React$Component);
+
+	  function TellPeopleOverlay() {
+	    _classCallCheck(this, TellPeopleOverlay);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(TellPeopleOverlay).apply(this, arguments));
+	  }
+
+	  _createClass(TellPeopleOverlay, [{
+	    key: 'getTweetIntentUrl',
+	    value: function getTweetIntentUrl() {
+	      var url = encodeURIComponent(location.protocol + '//' + location.hostname);
+	      var tags = encodeURIComponent(['manga', 'learnjapanese', '日本語'].join(','));
+	      var related = encodeURIComponent(['unwttng'].join(','));
+	      var text = encodeURIComponent('Mangakan - read manga, in Japanese, at your own pace');
+	      return 'https://twitter.com/intent/tweet?text=' + text + '&url=' + url + '&hashtags=' + tags + '&related=' + related;
+	    }
+	  }, {
+	    key: 'handleBackgroundClick',
+	    value: function handleBackgroundClick() {
+	      this.props.app.hideTellPeopleOverlay();
+	    }
+	  }, {
+	    key: 'handleContentClick',
+	    value: function handleContentClick(e) {
+	      e.stopPropagation();
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+
+	      return _react2.default.createElement(
+	        'div',
+	        { className: (0, _classnames2.default)(_tell_people_overlay2.default.overlay), onClick: this.handleBackgroundClick.bind(this) },
+	        _react2.default.createElement(
+	          'div',
+	          { className: (0, _classnames2.default)(_tell_people_overlay2.default.content), onClick: this.handleContentClick.bind(this) },
+	          _react2.default.createElement(
+	            'h2',
+	            { className: (0, _classnames2.default)(_tell_people_overlay2.default.header) },
+	            'Share the love!'
+	          ),
+	          _react2.default.createElement(
+	            'p',
+	            { className: (0, _classnames2.default)(_tell_people_overlay2.default.text) },
+	            'Have friends who learn Japanese? Or love manga? Preferably both? Tell them about Mangakan.',
+	            _react2.default.createElement('br', null),
+	            'The more the merrier, so please consider it :)'
+	          ),
+	          _react2.default.createElement(
+	            'a',
+	            { href: this.getTweetIntentUrl(), target: '_blank', className: (0, _classnames2.default)(_tell_people_overlay2.default.twitterButton) },
+	            'Tweet'
+	          )
+	        )
+	      );
+	    }
+	  }]);
+
+	  return TellPeopleOverlay;
+	}(_react2.default.Component);
+
+	exports.default = TellPeopleOverlay;
+
+/***/ },
+/* 195 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+	module.exports = {"overlay":"tell_people_overlay__overlay___2czdB","content":"tell_people_overlay__content___2jTuf","header":"tell_people_overlay__header___1TKqB","text":"tell_people_overlay__text___igx43","twitterButton":"tell_people_overlay__twitterButton___QkQZt"};
 
 /***/ }
 /******/ ]);

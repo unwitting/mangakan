@@ -3,16 +3,26 @@ import React from 'react'
 
 import c from './app.css'
 import Reader from './components/reader'
+import TellPeopleOverlay from './components/tell_people_overlay'
 
 export default class App extends React.Component {
 
   constructor(props) {
     super(props)
     this.state = {
-      editMode: true,
+      editMode: false,
+      showingTellPeopleOverlay: false,
       metaData: props.meta,
       pageData: props.page,
     }
+  }
+
+  hideTellPeopleOverlay() {
+    this.setState({showingTellPeopleOverlay: false})
+  }
+
+  showTellPeopleOverlay() {
+    this.setState({showingTellPeopleOverlay: true})
   }
 
   toggleEditMode() {
@@ -23,6 +33,9 @@ export default class App extends React.Component {
     return (
       <div className={classnames(c.app)}>
         <Reader app={this} meta={this.state.metaData} page={this.state.pageData} />
+        {this.state.showingTellPeopleOverlay ?
+          <TellPeopleOverlay app={this} meta={this.state.metaData} page={this.state.pageData} />
+        : null}
       </div>
     )
   }

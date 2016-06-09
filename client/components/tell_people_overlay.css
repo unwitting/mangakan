@@ -1,0 +1,50 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.85);
+  font-family: 'Noto Sans Japanese', 'Noto Sans', sans-serif;
+  font-weight: 200;
+}
+
+.content {
+  background-color: white;
+  border-radius: 5px;
+  border: 1px solid rgb(200, 200, 200);
+}
+
+.header {
+  padding: 1rem;
+  font-size: 1em;
+  font-weight: 300;
+  border-bottom: 1px solid rgb(200, 200, 200);
+}
+
+.text {
+  padding: 1rem;
+  font-size: 0.8em;
+}
+
+.twitterButton {
+  font: inherit;
+  font-weight: 300;
+  color: white;
+  display: inline-block;
+  margin-bottom: 1rem;
+  position: relative;
+  top: -0.2rem;
+  outline: none;
+  background-color: #55acee;
+  border-radius: 7px;
+  min-width: 9rem;
+  padding: 0.45rem;
+  cursor: pointer;
+  transition: background-color 0.1s linear;
+  text-decoration: none;
+}
