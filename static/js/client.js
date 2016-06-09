@@ -31337,7 +31337,7 @@
 	    key: 'getTweetIntentUrl',
 	    value: function getTweetIntentUrl() {
 	      var url = encodeURIComponent(location.protocol + '//' + location.hostname);
-	      var tags = encodeURIComponent(['manga', 'learnjapanese', '日本語'].join(','));
+	      var tags = encodeURIComponent(['mangakan', 'manga', 'learnjapanese', '日本語'].join(','));
 	      var related = encodeURIComponent(['unwttng'].join(','));
 	      var text = encodeURIComponent('Mangakan - read manga, in Japanese, at your own pace');
 	      return 'https://twitter.com/intent/tweet?text=' + text + '&url=' + url + '&hashtags=' + tags + '&related=' + related;

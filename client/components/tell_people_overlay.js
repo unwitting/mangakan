@@ -7,7 +7,7 @@ export default class TellPeopleOverlay extends React.Component {
 
   getTweetIntentUrl() {
     const url = encodeURIComponent(`${location.protocol}//${location.hostname}`)
-    const tags = encodeURIComponent(['manga', 'learnjapanese', '日本語'].join(','))
+    const tags = encodeURIComponent(['mangakan', 'manga', 'learnjapanese', '日本語'].join(','))
     const related = encodeURIComponent(['unwttng'].join(','))
     const text = encodeURIComponent(`Mangakan - read manga, in Japanese, at your own pace`)
     return `https://twitter.com/intent/tweet?text=${text}&url=${url}&hashtags=${tags}&related=${related}`
