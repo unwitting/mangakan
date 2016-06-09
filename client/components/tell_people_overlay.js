@@ -14,7 +14,7 @@ export default class TellPeopleOverlay extends React.Component {
   }
 
   handleBackgroundClick() {
-    this.props.app.hideTellPeopleOverlay()
+    this.props.reader.hideTellPeopleOverlay()
   }
 
   handleContentClick(e) {

@@ -32,10 +32,7 @@ export default class App extends React.Component {
   render() {
     return (
       <div className={classnames(c.app)}>
-        <Reader app={this} meta={this.state.metaData} page={this.state.pageData} />
-        {this.state.showingTellPeopleOverlay ?
-          <TellPeopleOverlay app={this} meta={this.state.metaData} page={this.state.pageData} />
-        : null}
+        {this.props.children}
       </div>
     )
   }

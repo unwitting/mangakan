@@ -6,7 +6,7 @@ import c from './tell_people_button.css'
 export default class TellPeopleButton extends React.Component {
 
   handleClick() {
-    this.props.app.showTellPeopleOverlay()
+    this.props.reader.showTellPeopleOverlay()
   }
 
   render() {

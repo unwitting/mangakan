@@ -7,10 +7,6 @@
 .reader__reader___2zFp8 {
   display: flex;
 }
-.data_viewer__dataViewer___3JvY9 {
-  padding: 1rem;
-  border-bottom: 1px solid rgb(200, 200, 200)
-}
 .furigana_toggler__furiganaToggler___3HTtV {
   padding: 1rem;
   width: 100%;
@@ -45,25 +41,6 @@
 
 .info_header__pageTitle___RbCpa {
   margin-top: 1rem;
-}
-
-.info_header__subControl___3kzS9 {
-  font: inherit;
-  color: inherit;
-  margin-left: 1rem;
-  position: relative;
-  top: -0.2rem;
-  outline: none;
-  background-color: inherit;
-  font-size: 0.5em;
-  border: 1px solid rgb(200, 200, 200);
-  border-radius: 3px;
-  padding: 0.25rem 0.35rem;
-  cursor: pointer;
-  transition: background-color 0.1s linear;
-}
-.info_header__subControl___3kzS9:hover {
-  background-color: rgb(247, 247, 247);
 }
 .tell_people_button__button___zzdyi {
   font: inherit;
