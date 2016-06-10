@@ -49,15 +49,16 @@ function getPageCacheKill(series, chapter, page) {
 function getPage(series, chapter, page) {
   log(`Getting page data for chapter ${colors.cyan(chapter)}, page ${colors.cyan(page)} of series: ${colors.cyan(series)}`)
   const cacheKey = `getPage-${series}/${chapter}/${page}`
-  if (!!getPageCache[cacheKey]) {
+  let data = getPageCache[cacheKey]
+  if (!!data) {
     log(`${colors.green('Cache hit')} for page data`)
-    return getPageCache[cacheKey]
   } else {
     log(`${colors.red('Cache miss')} for page data, reading from file`)
-    const data = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'json', series, `${chapter}_${page}.json`)))
+    data = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'json', series, `${chapter}_${page}.json`)))
     getPageCache[cacheKey] = data
-    return data
   }
+  data.status = (data.furiganaVotes >= 0 && !!data.vocab && !!data.vocabSegments) ? 'COMPLETE' : 'NEW'
+  return data
 }
 function writePage(series, chapter, page, data) {
   log(`${colors.green('Writing')} new page data for chapter ${colors.cyan(chapter)}, page ${colors.cyan(page)} of series: ${colors.cyan(series)}`)
