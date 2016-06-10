@@ -9,6 +9,9 @@ const path = require('path')
 const package = require('./package.json')
 
 const PORT = 8000
+const FURIGANA_VOTES_BASE = -10
+const FURIGANA_UNPOPULAR_DROP_THRESHOLD = -2
+
 const app = express()
 nunjucks.configure({
   autoescape: true,
@@ -188,6 +191,8 @@ app.post('/api/add_furigana/:series/:chapter/:page', (req, res) => {
     x, y, w, h,
     votes: 0,
   })
+  log(`Rebasing furigana votes for this page to ${colors.red(FURIGANA_VOTES_BASE)} since a furigana was added`)
+  page.furiganaVotes = FURIGANA_VOTES_BASE
   writePage(req.params.series, req.params.chapter, req.params.page, page)
   res.send({
     status: 'OK',
@@ -248,8 +253,10 @@ app.post('/api/vote_on_furigana/:series/:chapter/:page', (req, res) => {
     return res.send({status: 'BAD REQUEST'})
   }
   page.furigana[furiganaI].votes += (upVote ? 1 : -1)
-  if (page.furigana[furiganaI].votes < -2) {
+  if (page.furigana[furiganaI].votes < FURIGANA_UNPOPULAR_DROP_THRESHOLD) {
     page.furigana.splice(furiganaI, 1)
+    log(`Rebasing furigana votes for this page to ${colors.red(FURIGANA_VOTES_BASE)} since a furigana was dropped`)
+    page.furiganaVotes = FURIGANA_VOTES_BASE
   }
   writePage(req.params.series, req.params.chapter, req.params.page, page)
   res.send({
