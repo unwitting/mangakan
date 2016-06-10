@@ -48,7 +48,7 @@ export default class SeriesBrowser extends React.Component {
         </h1>
 
         {this.getChapters().map((chapter, i) => (
-          <ChapterView chapter={chapter} key={`chapter-${i}`} />
+          <ChapterView series={this.state.seriesMetaData.series} chapter={chapter} key={`chapter-${i}`} />
         ))}
 
       </div>

@@ -49,6 +49,33 @@ function getPage(series, chapter, page) {
   }
 }
 
+const getPagesCache = {}
+function getPages(series, chapter) {
+  log(`Getting pages list for chapter ${colors.cyan(chapter)} of series: ${colors.cyan(series)}`)
+  const cacheKey = `getPages-${series}/${chapter}`
+  if (!!getPagesCache[cacheKey]) {
+    log(`${colors.green('Cache hit')} for page list`)
+    return getPagesCache[cacheKey]
+  } else {
+    log(`${colors.red('Cache miss')} for page list, reading from files`)
+    const dataFiles = fs.readdirSync(path.join(__dirname, 'data', 'json', series))
+    const pages = []
+    for (let dataFile of dataFiles) {
+      const match = dataFile.match(/^[0-9]{1,20}_([0-9]{1,20}).json$/)
+      if (!!match) {
+        const page = getPage(series, chapter, match[1])
+        pages.push({
+          status: page.status,
+          chapter: page.chapter,
+          page: page.page,
+        })
+      }
+    }
+    getPagesCache[cacheKey] = pages
+    return pages
+  }
+}
+
 function log(s) {
   console.log(`${colors.green(new Date().toISOString())}: ${s}`)
 }
@@ -84,6 +111,23 @@ app.get('/api/:series', (req, res) => {
     status: 'OK',
     path: req.path,
     data: {meta},
+  })
+})
+app.get('/api/:series/:chapter', (req, res) => {
+  if (!validateSeriesName(req.params.series)) {
+    logErr(`API request for ${colors.cyan('page list')} of ${colors.red('invalid')} series: ${colors.red(req.params.series)}`)
+    return res.send({status: 'BAD REQUEST'})
+  }
+  if (!validateChapterString(req.params.chapter)) {
+    logErr(`API request for ${colors.cyan('page list')} of ${colors.red('invalid')} chapter ${colors.red(req.params.chapter)} of series: ${colors.cyan(req.params.series)}`)
+    return res.send({status: 'BAD REQUEST'})
+  }
+  log(`API request for ${colors.cyan('page list')} of chapter ${colors.cyan(req.params.chapter)} of series: ${colors.cyan(req.params.series)}`)
+  const pages = getPages(req.params.series, req.params.chapter)
+  res.send({
+    status: 'OK',
+    path: req.path,
+    data: {pages},
   })
 })
 app.get('/api/:series/:chapter/:page', (req, res) => {

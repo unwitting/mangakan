@@ -220,10 +220,30 @@
 
 .chapter_view__header___2Nyz_ {
   font-weight: 300;
+  margin-bottom: 1rem;
 }
 .chapter_view__subJp___2LhZA {
   font-size: 0.65em;
   margin-left: 0.4rem;
+}
+
+.chapter_view__pageThumbnail___I9xXH {
+  display: inline-block;
+  /* B5 aspect ratio */
+  height: 284px;
+  width: 200px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 5px;
+  border: 1px solid rgb(200, 200, 200);
+  margin: 0 0.2rem;
+  position: relative;
+  top: 0;
+  transition: top 0.1s linear;
+}
+.chapter_view__pageThumbnail___I9xXH:hover {
+  top: 0.4rem;
 }
 .series_browser__browser___1IuwE {
   font-family: 'Noto Sans Japanese', 'Noto Sans', sans-serif;

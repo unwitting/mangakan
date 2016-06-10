@@ -4,8 +4,28 @@
 
 .header {
   font-weight: 300;
+  margin-bottom: 1rem;
 }
 .subJp {
   font-size: 0.65em;
   margin-left: 0.4rem;
+}
+
+.pageThumbnail {
+  display: inline-block;
+  /* B5 aspect ratio */
+  height: 284px;
+  width: 200px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 5px;
+  border: 1px solid rgb(200, 200, 200);
+  margin: 0 0.2rem;
+  position: relative;
+  top: 0;
+  transition: top 0.1s linear;
+}
+.pageThumbnail:hover {
+  top: 0.4rem;
 }

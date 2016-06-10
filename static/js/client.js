@@ -36964,6 +36964,8 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var _this3 = this;
+
 	      var meta = this.state.seriesMetaData;
 	      var commonChildProps = {
 	        browser: this,
@@ -36984,7 +36986,7 @@
 	          )
 	        ),
 	        this.getChapters().map(function (chapter, i) {
-	          return _react2.default.createElement(_chapter_view2.default, { chapter: chapter, key: 'chapter-' + i });
+	          return _react2.default.createElement(_chapter_view2.default, { series: _this3.state.seriesMetaData.series, chapter: chapter, key: 'chapter-' + i });
 	        })
 	      ) : _react2.default.createElement('div', { className: (0, _classnames2.default)(_series_browser2.default.browser) });
 	    }
@@ -37011,6 +37013,10 @@
 
 	var _classnames2 = _interopRequireDefault(_classnames);
 
+	var _jquery = __webpack_require__(1);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
 	var _react = __webpack_require__(2);
 
 	var _react2 = _interopRequireDefault(_react);
@@ -37030,15 +37036,30 @@
 	var ChapterView = function (_React$Component) {
 	  _inherits(ChapterView, _React$Component);
 
-	  function ChapterView() {
+	  function ChapterView(props) {
 	    _classCallCheck(this, ChapterView);
 
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(ChapterView).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ChapterView).call(this, props));
+
+	    _this.state = { pages: null };
+	    return _this;
 	  }
 
 	  _createClass(ChapterView, [{
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var _this2 = this;
+
+	      _jquery2.default.get('/api/' + this.props.series + '/' + this.props.chapter.number, function (res) {
+	        console.log(res);
+	        _this2.setState({ pages: res.data.pages });
+	      });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var _this3 = this;
+
 	      var chapter = this.props.chapter;
 	      return _react2.default.createElement(
 	        'div',
@@ -37056,7 +37077,20 @@
 	            chapter.title.jp.common,
 	            chapter.title.jp.kana == chapter.title.jp.common ? '' : '（' + chapter.title.jp.kana + '）'
 	          )
-	        )
+	        ),
+	        !!this.state.pages ? _react2.default.createElement(
+	          'div',
+	          { className: (0, _classnames2.default)(_chapter_view2.default.pageList) },
+	          this.state.pages.map(function (page) {
+	            return _react2.default.createElement('a', {
+	              className: (0, _classnames2.default)(_chapter_view2.default.pageThumbnail),
+	              key: 'pageThumbnail-' + _this3.props.series + '-' + page.chapter + '-' + page.page,
+	              href: '/' + _this3.props.series + '/' + page.chapter + '/' + page.page,
+	              style: {
+	                backgroundImage: 'url(/data/images/' + _this3.props.series + '/' + page.chapter + '_' + page.page + '.jpg)'
+	              } });
+	          })
+	        ) : null
 	      );
 	    }
 	  }]);
@@ -37071,7 +37105,7 @@
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
-	module.exports = {"chapter":"chapter_view__chapter___y-j7y","header":"chapter_view__header___2Nyz_","subJp":"chapter_view__subJp___2LhZA"};
+	module.exports = {"chapter":"chapter_view__chapter___y-j7y","header":"chapter_view__header___2Nyz_","subJp":"chapter_view__subJp___2LhZA","pageThumbnail":"chapter_view__pageThumbnail___I9xXH"};
 
 /***/ },
 /* 258 */
