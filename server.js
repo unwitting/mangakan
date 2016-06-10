@@ -17,7 +17,7 @@ nunjucks.configure({
 const getMetaCache = {}
 function getMeta(series) {
   log(`Getting meta for series: ${colors.cyan(series)}`)
-  const cacheKey = `${series}`
+  const cacheKey = `getMeta-${series}`
   if (!!getMetaCache[cacheKey]) {
     log(`${colors.green('Cache hit')} for meta data`)
     return getMetaCache[cacheKey]
@@ -37,7 +37,7 @@ function genericPageServe(req, res, socialImageUrl=null) {
 const getPageCache = {}
 function getPage(series, chapter, page) {
   log(`Getting page data chapter ${colors.cyan(chapter)}, page ${colors.cyan(page)} of series: ${colors.cyan(series)}`)
-  const cacheKey = `${series}/${chapter}/${page}`
+  const cacheKey = `getPage-${series}/${chapter}/${page}`
   if (!!getPageCache[cacheKey]) {
     log(`${colors.green('Cache hit')} for page data`)
     return getPageCache[cacheKey]
@@ -56,6 +56,16 @@ function logErr(s) {
   console.error(`${colors.red(new Date().toISOString())}: ${s}`)
 }
 
+function validatePageString(page) {
+  return /^[0-9]{1,20}$/.test(page)
+}
+function validateChapterString(chapter) {
+  return /^[0-9]{1,20}$/.test(chapter)
+}
+function validateSeriesName(series) {
+  return /^[a-z0-9_]{1,20}$/.test(series)
+}
+
 app.use(morgan('dev'))
 app.use('/static', express.static('static'))
 app.use('/data', express.static('data'))
@@ -64,6 +74,10 @@ app.get('/', (req, res) => {
   res.redirect('/bleach/1/1')
 })
 app.get('/api/:series', (req, res) => {
+  if (!validateSeriesName(req.params.series)) {
+    logErr(`API request for ${colors.cyan('metadata')} on ${colors.red('invalid')} series: ${colors.red(req.params.series)}`)
+    return res.send({status: 'BAD REQUEST'})
+  }
   log(`API request for ${colors.cyan('metadata')} on series: ${colors.cyan(req.params.series)}`)
   const meta = getMeta(req.params.series)
   res.send({
@@ -73,6 +87,18 @@ app.get('/api/:series', (req, res) => {
   })
 })
 app.get('/api/:series/:chapter/:page', (req, res) => {
+  if (!validateSeriesName(req.params.series)) {
+    logErr(`API request for ${colors.cyan('page')} of ${colors.red('invalid')} series: ${colors.red(req.params.series)}`)
+    return res.send({status: 'BAD REQUEST'})
+  }
+  if (!validateChapterString(req.params.chapter)) {
+    logErr(`API request for ${colors.cyan('page')} of ${colors.red('invalid')} chapter ${colors.red(req.params.chapter)} of series: ${colors.cyan(req.params.series)}`)
+    return res.send({status: 'BAD REQUEST'})
+  }
+  if (!validatePageString(req.params.page)) {
+    logErr(`API request for ${colors.red(`invalid page ${req.params.page}`)} of chapter ${colors.cyan(req.params.chapter)} of series: ${colors.cyan(req.params.series)}`)
+    return res.send({status: 'BAD REQUEST'})
+  }
   log(`API request for ${colors.cyan(`page ${req.params.page}`)} of chapter ${colors.cyan(req.params.chapter)} of series: ${colors.cyan(req.params.series)}`)
   const page = getPage(req.params.series, req.params.chapter, req.params.page)
   res.send({
