@@ -2,7 +2,8 @@
   "status": "NEW",
   "chapter": 1,
   "page": 2,
+  "furiganaVotes": -10,
   "furigana": [],
-  "vocab": {},
-  "vocabSegments": []
+  "vocab": null,
+  "vocabSegments": null
 }

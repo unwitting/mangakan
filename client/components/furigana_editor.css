@@ -1,0 +1,78 @@
+.furiganaEditor {
+  padding: 1rem;
+  width: 100%;
+  font-size: 0.9em;
+  border-bottom: 1px solid rgb(200, 200, 200);
+}
+
+.highlight {
+  color: rgb(255, 110, 19);
+}
+
+.emph {
+  font-weight: 400;
+}
+
+.currentFuriganaHint {
+  margin-bottom: 0.75rem;
+}
+.currentFuriganaList, .newFuriganaComponents {
+  padding: 0;
+}
+.currentFuriganaElement {
+  list-style-type: none;
+  margin-left: 1rem;
+  margin-bottom: 0.3rem;
+}
+.furiganaComponent {
+  list-style-type: none;
+  text-align: right;
+}
+
+.addHint {
+  margin-top: 0.75rem;
+}
+
+.addButtonWrapper {
+  text-align: right;
+}
+.addButton, .goodFuriganaButton, .badFuriganaButton, .newFuriganaContent, .approveButton {
+  font: inherit;
+  outline: none;
+  background-color: inherit;
+  border: 1px solid rgb(200, 200, 200);
+  border-radius: 3px;
+  transition: background-color 0.1s linear, opacity 0.1s linear;
+}
+.addButton, .newFuriganaContent {
+  padding: 0.25rem 0.35rem;
+  margin-top: 1rem;
+}
+.goodFuriganaButton, .badFuriganaButton {
+  font-size: 0.8em;
+  margin-left: 0.15rem;
+}
+.goodFuriganaButton {
+  margin-left: 0.8rem;
+}
+.addButton:disabled, .goodFuriganaButton:disabled, .badFuriganaButton:disabled, .approveButton:disabled {
+  opacity: 0.6;
+}
+.addButton:not(:disabled), .goodFuriganaButton:not(:disabled), .badFuriganaButton:not(:disabled), .approveButton:not(:disabled) {
+  cursor: pointer;
+}
+.addButton:hover:not(:disabled), .goodFuriganaButton:hover:not(:disabled), .badFuriganaButton:hover:not(:disabled), .approveButton:hover:not(:disabled) {
+  background-color: rgb(247, 247, 247);
+}
+.approveButton {
+  margin-top: 0.5rem;
+}
+
+.newFuriganaContent {
+  margin-right: 0.3rem;
+  width: 50%;
+}
+
+.slider {
+  width: 100%;
+}

@@ -18,6 +18,14 @@ export default class Reader extends React.Component {
       seriesMetaData: null,
       showingTellPeopleOverlay: false,
       version: props.route.version,
+      newFuriganaLeft: 0,
+      newFuriganaTop: 0,
+      newFuriganaWidth: 0,
+      newFuriganaHeight: 0,
+      newFuriganaContent: '',
+      furiganaVoted: [],
+      furiganaApproved: false,
+      highlightedFurigana: null,
     }
   }
 

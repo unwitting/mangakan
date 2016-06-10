@@ -68,7 +68,7 @@
 
 	var _reader2 = _interopRequireDefault(_reader);
 
-	var _series_browser = __webpack_require__(255);
+	var _series_browser = __webpack_require__(259);
 
 	var _series_browser2 = _interopRequireDefault(_series_browser);
 
@@ -35714,7 +35714,7 @@
 
 	var _reader2 = _interopRequireDefault(_reader);
 
-	var _tell_people_overlay = __webpack_require__(253);
+	var _tell_people_overlay = __webpack_require__(257);
 
 	var _tell_people_overlay2 = _interopRequireDefault(_tell_people_overlay);
 
@@ -35869,11 +35869,11 @@
 
 	var _info_box2 = _interopRequireDefault(_info_box);
 
-	var _page_scan = __webpack_require__(247);
+	var _page_scan = __webpack_require__(249);
 
 	var _page_scan2 = _interopRequireDefault(_page_scan);
 
-	var _tell_people_overlay = __webpack_require__(253);
+	var _tell_people_overlay = __webpack_require__(257);
 
 	var _tell_people_overlay2 = _interopRequireDefault(_tell_people_overlay);
 
@@ -35899,7 +35899,15 @@
 	      selectedVocabSegment: null,
 	      seriesMetaData: null,
 	      showingTellPeopleOverlay: false,
-	      version: props.route.version
+	      version: props.route.version,
+	      newFuriganaLeft: 0,
+	      newFuriganaTop: 0,
+	      newFuriganaWidth: 0,
+	      newFuriganaHeight: 0,
+	      newFuriganaContent: '',
+	      furiganaVoted: [],
+	      furiganaApproved: false,
+	      highlightedFurigana: null
 	    };
 	    return _this;
 	  }
@@ -36013,23 +36021,31 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _furigana_toggler = __webpack_require__(236);
+	var _furigana_editor = __webpack_require__(236);
+
+	var _furigana_editor2 = _interopRequireDefault(_furigana_editor);
+
+	var _furigana_toggler = __webpack_require__(238);
 
 	var _furigana_toggler2 = _interopRequireDefault(_furigana_toggler);
 
-	var _info_header = __webpack_require__(238);
+	var _info_header = __webpack_require__(240);
 
 	var _info_header2 = _interopRequireDefault(_info_header);
 
-	var _vanity_footer = __webpack_require__(240);
+	var _vanity_footer = __webpack_require__(242);
 
 	var _vanity_footer2 = _interopRequireDefault(_vanity_footer);
 
-	var _vocab_segment = __webpack_require__(244);
+	var _vocab_editor = __webpack_require__(266);
+
+	var _vocab_editor2 = _interopRequireDefault(_vocab_editor);
+
+	var _vocab_segment = __webpack_require__(246);
 
 	var _vocab_segment2 = _interopRequireDefault(_vocab_segment);
 
-	var _info_box = __webpack_require__(246);
+	var _info_box = __webpack_require__(248);
 
 	var _info_box2 = _interopRequireDefault(_info_box);
 
@@ -36057,7 +36073,8 @@
 	        'div',
 	        { className: (0, _classnames2.default)(_info_box2.default.infoBox) },
 	        _react2.default.createElement(_info_header2.default, this.props),
-	        _react2.default.createElement(_furigana_toggler2.default, this.props),
+	        this.props.page.furiganaVotes >= 0 && !this.props.page.vocab ? _react2.default.createElement(_vocab_editor2.default, this.props) : null,
+	        this.props.page.furiganaVotes >= 0 ? _react2.default.createElement(_furigana_toggler2.default, this.props) : _react2.default.createElement(_furigana_editor2.default, this.props),
 	        !!this.props.reader.state.selectedVocabSegment ? _react2.default.createElement(_vocab_segment2.default, this.props) : null,
 	        _react2.default.createElement(_vanity_footer2.default, this.props)
 	      );
@@ -36081,6 +36098,369 @@
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+	var _classnames2 = __webpack_require__(231);
+
+	var _classnames3 = _interopRequireDefault(_classnames2);
+
+	var _jsCookie = __webpack_require__(265);
+
+	var _jsCookie2 = _interopRequireDefault(_jsCookie);
+
+	var _jquery = __webpack_require__(1);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _furigana_editor = __webpack_require__(237);
+
+	var _furigana_editor2 = _interopRequireDefault(_furigana_editor);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var FuriganaEditor = function (_React$Component) {
+	  _inherits(FuriganaEditor, _React$Component);
+
+	  function FuriganaEditor(props) {
+	    _classCallCheck(this, FuriganaEditor);
+
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(FuriganaEditor).call(this, props));
+
+	    _this.state = {
+	      furiganaVoted: []
+	    };
+	    return _this;
+	  }
+
+	  _createClass(FuriganaEditor, [{
+	    key: 'handleFuriganaLeftChange',
+	    value: function handleFuriganaLeftChange(e) {
+	      var r = this.props.reader;
+	      var newLeft = parseFloat(e.target.value);
+	      var currentWidth = parseFloat(r.state.newFuriganaWidth);
+	      r.setState({
+	        newFuriganaLeft: newLeft,
+	        newFuriganaWidth: currentWidth + newLeft > 100 ? 100 - newLeft : currentWidth
+	      });
+	    }
+	  }, {
+	    key: 'handleFuriganaTopChange',
+	    value: function handleFuriganaTopChange(e) {
+	      var r = this.props.reader;
+	      var newTop = parseFloat(e.target.value);
+	      var currentHeight = parseFloat(r.state.newFuriganaHeight);
+	      r.setState({
+	        newFuriganaTop: newTop,
+	        newFuriganaHeight: currentHeight + newTop > 100 ? 100 - newTop : currentHeight
+	      });
+	    }
+	  }, {
+	    key: 'handleFuriganaWidthChange',
+	    value: function handleFuriganaWidthChange(e) {
+	      var r = this.props.reader;
+	      var newWidth = parseFloat(e.target.value);
+	      var currentLeft = parseFloat(r.state.newFuriganaLeft);
+	      r.setState({
+	        newFuriganaWidth: newWidth,
+	        newFuriganaLeft: newWidth + currentLeft > 100 ? 100 - newWidth : currentLeft
+	      });
+	    }
+	  }, {
+	    key: 'handleFuriganaHeightChange',
+	    value: function handleFuriganaHeightChange(e) {
+	      var r = this.props.reader;
+	      var newHeight = parseFloat(e.target.value);
+	      var currentTop = parseFloat(r.state.newFuriganaTop);
+	      r.setState({
+	        newFuriganaHeight: newHeight,
+	        newFuriganaTop: newHeight + currentTop > 100 ? 100 - newHeight : currentTop
+	      });
+	    }
+	  }, {
+	    key: 'handleFuriganaContentChange',
+	    value: function handleFuriganaContentChange(e) {
+	      this.props.reader.setState({ newFuriganaContent: e.target.value });
+	    }
+	  }, {
+	    key: 'handleFuriganaElementEnter',
+	    value: function handleFuriganaElementEnter(furiganaI) {
+	      this.props.reader.setState({ highlightedFurigana: furiganaI });
+	    }
+	  }, {
+	    key: 'handleFuriganaElementLeave',
+	    value: function handleFuriganaElementLeave(furiganaI) {
+	      this.props.reader.setState({ highlightedFurigana: null });
+	    }
+	  }, {
+	    key: 'handleFuriganaElementUpvote',
+	    value: function handleFuriganaElementUpvote(furiganaI) {
+	      this.handleFuriganaElementVote(furiganaI, true);
+	    }
+	  }, {
+	    key: 'handleFuriganaElementDownvote',
+	    value: function handleFuriganaElementDownvote(furiganaI) {
+	      this.handleFuriganaElementVote(furiganaI, false);
+	    }
+	  }, {
+	    key: 'handleFuriganaElementVote',
+	    value: function handleFuriganaElementVote(furiganaI, upVote) {
+	      var _this2 = this;
+
+	      var numFuriganaBeforeVote = this.props.page.furigana.length;
+	      _jquery2.default.ajax({
+	        url: '/api/vote_on_furigana/' + this.props.meta.series + '/' + this.props.page.chapter + '/' + this.props.page.page,
+	        type: 'POST',
+	        data: JSON.stringify({
+	          i: furiganaI,
+	          up: upVote
+	        }),
+	        contentType: 'application/json',
+	        dataType: 'json',
+	        success: function success(res) {
+	          var removed = res.data.page.furigana.length < numFuriganaBeforeVote;
+	          var furiganaVoted = _this2.props.reader.state.furiganaVoted;
+	          if (removed) {
+	            // Decrease the index of all above it
+	            for (var i = 0; i < furiganaVoted.length; i++) {
+	              if (furiganaVoted[i] > furiganaI) {
+	                furiganaVoted[i]--;
+	              }
+	            }
+	          } else {
+	            // Register the vote
+	            furiganaVoted.push(furiganaI);
+	          }
+	          _this2.props.reader.setState({ pageData: res.data.page, furiganaVoted: furiganaVoted });
+	        }
+	      });
+	    }
+	  }, {
+	    key: 'handleAddFuriganaClick',
+	    value: function handleAddFuriganaClick() {
+	      var _this3 = this;
+
+	      var readerState = this.props.reader.state;
+	      _jquery2.default.ajax({
+	        url: '/api/add_furigana/' + this.props.meta.series + '/' + this.props.page.chapter + '/' + this.props.page.page,
+	        type: 'POST',
+	        data: JSON.stringify({
+	          left: parseFloat(readerState.newFuriganaLeft),
+	          top: parseFloat(readerState.newFuriganaTop),
+	          width: parseFloat(readerState.newFuriganaWidth),
+	          height: parseFloat(readerState.newFuriganaHeight),
+	          content: readerState.newFuriganaContent
+	        }),
+	        contentType: 'application/json',
+	        dataType: 'json',
+	        success: function success(res) {
+	          _this3.props.reader.setState({
+	            pageData: res.data.page,
+	            newFuriganaLeft: 0,
+	            newFuriganaTop: 0,
+	            newFuriganaWidth: 0,
+	            newFuriganaHeight: 0
+	          });
+	        }
+	      });
+	    }
+	  }, {
+	    key: 'handleFuriganaApproveClick',
+	    value: function handleFuriganaApproveClick() {
+	      var _this4 = this;
+
+	      _jquery2.default.ajax({
+	        url: '/api/approve_furigana/' + this.props.meta.series + '/' + this.props.page.chapter + '/' + this.props.page.page,
+	        type: 'POST',
+	        contentType: 'application/json',
+	        dataType: 'json',
+	        success: function success(res) {
+	          _this4.props.reader.setState({
+	            pageData: res.data.page,
+	            furiganaApproved: true
+	          });
+	        }
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this5 = this;
+
+	      var furigana = this.props.page.furigana;
+	      var readerState = this.props.reader.state;
+	      var newFuriganaValid = readerState.newFuriganaWidth > 0 && readerState.newFuriganaHeight > 0 && readerState.newFuriganaContent.length > 0;
+	      return _react2.default.createElement(
+	        'div',
+	        { className: (0, _classnames3.default)(_furigana_editor2.default.furiganaEditor) },
+	        _react2.default.createElement(
+	          'p',
+	          { className: (0, _classnames3.default)(_furigana_editor2.default.highlight) },
+	          'The ',
+	          _react2.default.createElement(
+	            'span',
+	            { className: (0, _classnames3.default)(_furigana_editor2.default.emph) },
+	            'furigana blocker boxes'
+	          ),
+	          ' for this page haven\'t been sorted out yet. Help us get them done.'
+	        ),
+	        furigana.length > 0 ? _react2.default.createElement(
+	          'ul',
+	          { className: (0, _classnames3.default)(_furigana_editor2.default.currentFuriganaList) },
+	          _react2.default.createElement(
+	            'p',
+	            { className: (0, _classnames3.default)(_furigana_editor2.default.currentFuriganaHint) },
+	            'These are the furigana blockers defined so far.  Take a look at each, and tell us if it\'s good or bad.  ',
+	            _react2.default.createElement(
+	              'span',
+	              { className: (0, _classnames3.default)(_furigana_editor2.default.emph) },
+	              'Bad'
+	            ),
+	            ' means not covering the furigana, covering it too broadly, blocking non-furigana, or ',
+	            _react2.default.createElement(
+	              'span',
+	              { className: (0, _classnames3.default)(_furigana_editor2.default.emph) },
+	              'content not matching the page'
+	            ),
+	            '.'
+	          ),
+	          furigana.map(function (f, i) {
+	            var voted = readerState.furiganaVoted.indexOf(i) !== -1;
+	            return _react2.default.createElement(
+	              'li',
+	              {
+	                className: (0, _classnames3.default)(_furigana_editor2.default.currentFuriganaElement),
+	                key: 'furigana-element-' + i,
+	                onMouseEnter: _this5.handleFuriganaElementEnter.bind(_this5, i),
+	                onMouseLeave: _this5.handleFuriganaElementLeave.bind(_this5, i) },
+	              'Content ',
+	              _react2.default.createElement(
+	                'span',
+	                { className: (0, _classnames3.default)(_furigana_editor2.default.emph) },
+	                '「',
+	                f.content,
+	                '」'
+	              ),
+	              _react2.default.createElement(
+	                'button',
+	                {
+	                  disabled: voted,
+	                  className: (0, _classnames3.default)(_furigana_editor2.default.goodFuriganaButton),
+	                  onClick: _this5.handleFuriganaElementUpvote.bind(_this5, i) },
+	                'Good'
+	              ),
+	              _react2.default.createElement(
+	                'button',
+	                {
+	                  disabled: voted,
+	                  className: (0, _classnames3.default)(_furigana_editor2.default.badFuriganaButton),
+	                  onClick: _this5.handleFuriganaElementDownvote.bind(_this5, i) },
+	                'Bad'
+	              )
+	            );
+	          })
+	        ) : null,
+	        _react2.default.createElement(
+	          'ul',
+	          { className: (0, _classnames3.default)(_furigana_editor2.default.newFuriganaComponents) },
+	          'If you see furigana without a blocker, or with a bad blocker, create one here. Drag the sliders to position it, then click the button.',
+	          _react2.default.createElement(
+	            'li',
+	            { className: (0, _classnames3.default)(_furigana_editor2.default.furiganaComponent) },
+	            'Width',
+	            _react2.default.createElement('br', null),
+	            _react2.default.createElement('input', { className: (0, _classnames3.default)(_furigana_editor2.default.slider), type: 'range', step: 0.1, min: 0, max: 100 - readerState.newFuriganaLeft, value: readerState.newFuriganaWidth, onChange: this.handleFuriganaWidthChange.bind(this) })
+	          ),
+	          _react2.default.createElement(
+	            'li',
+	            { className: (0, _classnames3.default)(_furigana_editor2.default.furiganaComponent) },
+	            'Height',
+	            _react2.default.createElement('br', null),
+	            _react2.default.createElement('input', { className: (0, _classnames3.default)(_furigana_editor2.default.slider), type: 'range', step: 0.1, min: 0, max: 100 - readerState.newFuriganaTop, value: readerState.newFuriganaHeight, onChange: this.handleFuriganaHeightChange.bind(this) })
+	          ),
+	          _react2.default.createElement(
+	            'li',
+	            { className: (0, _classnames3.default)(_furigana_editor2.default.furiganaComponent) },
+	            'Left',
+	            _react2.default.createElement('br', null),
+	            _react2.default.createElement('input', { className: (0, _classnames3.default)(_furigana_editor2.default.slider), type: 'range', step: 0.1, min: 0, max: 100 - readerState.newFuriganaWidth, value: readerState.newFuriganaLeft, onChange: this.handleFuriganaLeftChange.bind(this) })
+	          ),
+	          _react2.default.createElement(
+	            'li',
+	            { className: (0, _classnames3.default)(_furigana_editor2.default.furiganaComponent) },
+	            'Top',
+	            _react2.default.createElement('br', null),
+	            _react2.default.createElement('input', { className: (0, _classnames3.default)(_furigana_editor2.default.slider), type: 'range', step: 0.1, min: 0, max: 100 - readerState.newFuriganaHeight, value: readerState.newFuriganaTop, onChange: this.handleFuriganaTopChange.bind(this) })
+	          ),
+	          _react2.default.createElement(
+	            'div',
+	            { className: (0, _classnames3.default)(_furigana_editor2.default.addButtonWrapper) },
+	            _react2.default.createElement('input', {
+	              className: (0, _classnames3.default)(_furigana_editor2.default.newFuriganaContent),
+	              type: 'text',
+	              value: readerState.newFuriganaContent,
+	              placeholder: 'Furigana content (かな)',
+	              onChange: this.handleFuriganaContentChange.bind(this) }),
+	            _react2.default.createElement(
+	              'button',
+	              {
+	                className: (0, _classnames3.default)(_furigana_editor2.default.addButton),
+	                disabled: !newFuriganaValid,
+	                onClick: this.handleAddFuriganaClick.bind(this) },
+	              'Add furigana blocker'
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'p',
+	          null,
+	          'If you\'ve checked all the furigana blockers, and think none are missing or bad, click this button. Once enough people do, they\'ll be accepted.'
+	        ),
+	        _react2.default.createElement(
+	          'button',
+	          {
+	            disabled: readerState.furiganaApproved,
+	            className: (0, _classnames3.default)(_furigana_editor2.default.approveButton, _defineProperty({}, _furigana_editor2.default.highlight, !readerState.furiganaApproved)),
+	            onClick: this.handleFuriganaApproveClick.bind(this) },
+	          'I approve of the furigana blockers for this page'
+	        )
+	      );
+	    }
+	  }]);
+
+	  return FuriganaEditor;
+	}(_react2.default.Component);
+
+	exports.default = FuriganaEditor;
+
+/***/ },
+/* 237 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+	module.exports = {"furiganaEditor":"furigana_editor__furiganaEditor___3n_ds","highlight":"furigana_editor__highlight___16Zt3","emph":"furigana_editor__emph___23ZXT","currentFuriganaHint":"furigana_editor__currentFuriganaHint___3-eh6","currentFuriganaList":"furigana_editor__currentFuriganaList___pg9eB","newFuriganaComponents":"furigana_editor__newFuriganaComponents___10EKK","currentFuriganaElement":"furigana_editor__currentFuriganaElement___pi1tn","furiganaComponent":"furigana_editor__furiganaComponent___1zwrZ","addHint":"furigana_editor__addHint___3SU07","addButtonWrapper":"furigana_editor__addButtonWrapper___2t2wN","addButton":"furigana_editor__addButton___2azqe","goodFuriganaButton":"furigana_editor__goodFuriganaButton___3Pjeh","badFuriganaButton":"furigana_editor__badFuriganaButton___KSoSJ","newFuriganaContent":"furigana_editor__newFuriganaContent___3cFjv","approveButton":"furigana_editor__approveButton___2d2-I","slider":"furigana_editor__slider___1i4p6"};
+
+/***/ },
+/* 238 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
 	var _classnames = __webpack_require__(231);
 
 	var _classnames2 = _interopRequireDefault(_classnames);
@@ -36089,7 +36469,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _furigana_toggler = __webpack_require__(237);
+	var _furigana_toggler = __webpack_require__(239);
 
 	var _furigana_toggler2 = _interopRequireDefault(_furigana_toggler);
 
@@ -36134,14 +36514,14 @@
 	exports.default = FuriganaToggler;
 
 /***/ },
-/* 237 */
+/* 239 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 	module.exports = {"furiganaToggler":"furigana_toggler__furiganaToggler___3HTtV"};
 
 /***/ },
-/* 238 */
+/* 240 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -36160,7 +36540,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _info_header = __webpack_require__(239);
+	var _info_header = __webpack_require__(241);
 
 	var _info_header2 = _interopRequireDefault(_info_header);
 
@@ -36186,17 +36566,56 @@
 	    value: function render() {
 	      var meta = this.props.meta;
 	      var page = this.props.page;
+
+	      var hasPreviousPage = false;
+	      var hasNextPage = false;
+	      var _iteratorNormalCompletion = true;
+	      var _didIteratorError = false;
+	      var _iteratorError = undefined;
+
+	      try {
+	        for (var _iterator = meta.chapters[page.chapter].pages[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+	          var otherPage = _step.value;
+
+	          if (otherPage.page == page.page - 1) {
+	            hasPreviousPage = true;
+	          } else if (otherPage.page == page.page + 1) {
+	            hasNextPage = true;
+	          }
+	          if (hasPreviousPage && hasNextPage) {
+	            break;
+	          }
+	        }
+	      } catch (err) {
+	        _didIteratorError = true;
+	        _iteratorError = err;
+	      } finally {
+	        try {
+	          if (!_iteratorNormalCompletion && _iterator.return) {
+	            _iterator.return();
+	          }
+	        } finally {
+	          if (_didIteratorError) {
+	            throw _iteratorError;
+	          }
+	        }
+	      }
+
 	      return _react2.default.createElement(
 	        'div',
-	        { className: (0, _classnames2.default)(_info_header2.default.infoHeader) },
+	        { className: (0, _classnames2.default)(_info_header2.default.infoHeader), style: { opacity: page.status == 'COMPLETE' ? 1 : 0.35 } },
 	        _react2.default.createElement(
-	          'h1',
-	          { className: (0, _classnames2.default)(_info_header2.default.header, _info_header2.default.seriesTitle) },
-	          meta.title.en,
+	          'a',
+	          { href: '/' + meta.series, className: (0, _classnames2.default)(_info_header2.default.link) },
 	          _react2.default.createElement(
-	            'span',
-	            { className: (0, _classnames2.default)(_info_header2.default.subJp) },
-	            meta.title.jp.common
+	            'h1',
+	            { className: (0, _classnames2.default)(_info_header2.default.header, _info_header2.default.seriesTitle) },
+	            meta.title.en,
+	            _react2.default.createElement(
+	              'span',
+	              { className: (0, _classnames2.default)(_info_header2.default.subJp) },
+	              meta.title.jp.common
+	            )
 	          )
 	        ),
 	        _react2.default.createElement(
@@ -36215,8 +36634,22 @@
 	        _react2.default.createElement(
 	          'h2',
 	          { className: (0, _classnames2.default)(_info_header2.default.header, _info_header2.default.pageTitle) },
+	          hasPreviousPage ? _react2.default.createElement(
+	            'a',
+	            {
+	              href: '/' + meta.series + '/' + page.chapter + '/' + (page.page - 1),
+	              className: (0, _classnames2.default)(_info_header2.default.paginationButton, _info_header2.default.previousButton) },
+	            'previous'
+	          ) : null,
 	          'Page ',
-	          page.page
+	          page.page,
+	          hasNextPage ? _react2.default.createElement(
+	            'a',
+	            {
+	              href: '/' + meta.series + '/' + page.chapter + '/' + (page.page + 1),
+	              className: (0, _classnames2.default)(_info_header2.default.paginationButton, _info_header2.default.nextButton) },
+	            'next'
+	          ) : null
 	        )
 	      );
 	    }
@@ -36228,14 +36661,14 @@
 	exports.default = InfoHeader;
 
 /***/ },
-/* 239 */
+/* 241 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
-	module.exports = {"infoHeader":"info_header__infoHeader___2eh49","header":"info_header__header___37JnH","subJp":"info_header__subJp___1Bjlq","pageTitle":"info_header__pageTitle___RbCpa"};
+	module.exports = {"infoHeader":"info_header__infoHeader___2eh49","header":"info_header__header___37JnH","subJp":"info_header__subJp___1Bjlq","pageTitle":"info_header__pageTitle___RbCpa","link":"info_header__link___TiR2m","paginationButton":"info_header__paginationButton___3GF6R","previousButton":"info_header__previousButton___3_hqa","nextButton":"info_header__nextButton___1GNfu"};
 
 /***/ },
-/* 240 */
+/* 242 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -36254,11 +36687,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _tell_people_button = __webpack_require__(241);
+	var _tell_people_button = __webpack_require__(243);
 
 	var _tell_people_button2 = _interopRequireDefault(_tell_people_button);
 
-	var _vanity_footer = __webpack_require__(243);
+	var _vanity_footer = __webpack_require__(245);
 
 	var _vanity_footer2 = _interopRequireDefault(_vanity_footer);
 
@@ -36311,7 +36744,7 @@
 	exports.default = VanityFooter;
 
 /***/ },
-/* 241 */
+/* 243 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -36330,7 +36763,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _tell_people_button = __webpack_require__(242);
+	var _tell_people_button = __webpack_require__(244);
 
 	var _tell_people_button2 = _interopRequireDefault(_tell_people_button);
 
@@ -36374,21 +36807,21 @@
 	exports.default = TellPeopleButton;
 
 /***/ },
-/* 242 */
+/* 244 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 	module.exports = {"button":"tell_people_button__button___zzdyi"};
 
 /***/ },
-/* 243 */
+/* 245 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 	module.exports = {"vanityFooter":"vanity_footer__vanityFooter___3i2lx","link":"vanity_footer__link___eTQWb"};
 
 /***/ },
-/* 244 */
+/* 246 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -36407,7 +36840,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _vocab_segment = __webpack_require__(245);
+	var _vocab_segment = __webpack_require__(247);
 
 	var _vocab_segment2 = _interopRequireDefault(_vocab_segment);
 
@@ -36526,21 +36959,21 @@
 	exports.default = VocabSegment;
 
 /***/ },
-/* 245 */
+/* 247 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 	module.exports = {"vocabSegment":"vocab_segment__vocabSegment___2miLR","jpCommon":"vocab_segment__jpCommon___2G2Aj","jpKana":"vocab_segment__jpKana___1DZBU","translation":"vocab_segment__translation___3AJRt","vocabList":"vocab_segment__vocabList___3iR2a","vocabElement":"vocab_segment__vocabElement___3zUZL","vocabElementKanji":"vocab_segment__vocabElementKanji___3ijec","vocabElementJpCommon":"vocab_segment__vocabElementJpCommon___1UZai","vocabElementReading":"vocab_segment__vocabElementReading___2eh0I","vocabElementJpKana":"vocab_segment__vocabElementJpKana___dMvm3","vocabElementMeaning":"vocab_segment__vocabElementMeaning___1rlqw","notesTitle":"vocab_segment__notesTitle___3brql","notes":"vocab_segment__notes___XV9E2","note":"vocab_segment__note___pBOIK"};
 
 /***/ },
-/* 246 */
+/* 248 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 	module.exports = {"infoBox":"info_box__infoBox___3u9nh"};
 
 /***/ },
-/* 247 */
+/* 249 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -36561,15 +36994,19 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _furigana_blocker = __webpack_require__(248);
+	var _furigana_blocker = __webpack_require__(250);
 
 	var _furigana_blocker2 = _interopRequireDefault(_furigana_blocker);
 
-	var _vocab_segment_selector = __webpack_require__(250);
+	var _new_furigana_blocker = __webpack_require__(252);
+
+	var _new_furigana_blocker2 = _interopRequireDefault(_new_furigana_blocker);
+
+	var _vocab_segment_selector = __webpack_require__(254);
 
 	var _vocab_segment_selector2 = _interopRequireDefault(_vocab_segment_selector);
 
-	var _page_scan = __webpack_require__(252);
+	var _page_scan = __webpack_require__(256);
 
 	var _page_scan2 = _interopRequireDefault(_page_scan);
 
@@ -36598,6 +37035,12 @@
 	      var meta = this.props.meta;
 	      var page = this.props.page;
 	      var imgUrl = '/data/images/' + meta.series + '/' + page.chapter + '_' + page.page + '.jpg';
+
+	      var newFuriL = this.props.reader.state.newFuriganaLeft;
+	      var newFuriT = this.props.reader.state.newFuriganaTop;
+	      var newFuriW = this.props.reader.state.newFuriganaWidth;
+	      var newFuriH = this.props.reader.state.newFuriganaHeight;
+	      var renderNewFurigana = !(newFuriL == 0 && newFuriT == 0 && newFuriW == 0 && newFuriH == 0);
 	      return _react2.default.createElement(
 	        'div',
 	        { className: (0, _classnames2.default)(_page_scan2.default.pageScan) },
@@ -36605,16 +37048,17 @@
 	          'div',
 	          { className: (0, _classnames2.default)(_page_scan2.default.sizeWrapper) },
 	          _react2.default.createElement('img', { className: (0, _classnames2.default)(_page_scan2.default.image), src: imgUrl }),
-	          page.furigana.map(function (furigana, i) {
-	            return _react2.default.createElement(_furigana_blocker2.default, _extends({ key: 'furigana-blocker-' + i, furigana: furigana }, _this2.props));
-	          }),
-	          page.vocabSegments.map(function (vocabSegment, i) {
+	          !!page.furigana ? page.furigana.map(function (furigana, i) {
+	            return _react2.default.createElement(_furigana_blocker2.default, _extends({ key: 'furigana-blocker-' + i, furigana: furigana, highlighted: i == _this2.props.reader.state.highlightedFurigana }, _this2.props));
+	          }) : null,
+	          renderNewFurigana ? _react2.default.createElement(_new_furigana_blocker2.default, _extends({}, this.props, { left: newFuriL, top: newFuriT, width: newFuriW, height: newFuriH })) : null,
+	          !!page.vocabSegments ? page.vocabSegments.map(function (vocabSegment, i) {
 	            return _react2.default.createElement(_vocab_segment_selector2.default, _extends({
 	              key: 'vocabSegment-selector-' + i,
 	              vocabIndex: i,
 	              vocabSegment: vocabSegment
 	            }, _this2.props));
-	          })
+	          }) : null
 	        )
 	      );
 	    }
@@ -36626,7 +37070,7 @@
 	exports.default = PageScan;
 
 /***/ },
-/* 248 */
+/* 250 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -36645,7 +37089,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _furigana_blocker = __webpack_require__(249);
+	var _furigana_blocker = __webpack_require__(251);
 
 	var _furigana_blocker2 = _interopRequireDefault(_furigana_blocker);
 
@@ -36674,7 +37118,8 @@
 	      return _react2.default.createElement('div', {
 	        className: (0, _classnames3.default)(_furigana_blocker2.default.furiganaBlocker, _defineProperty({}, _furigana_blocker2.default.hidden, !this.props.reader.state.furiganaShown)),
 	        style: {
-	          backgroundColor: this.props.furigana.color,
+	          backgroundColor: this.props.highlighted ? 'rgba(255, 0, 0, 0.5)' : this.props.furigana.color,
+	          border: this.props.highlighted ? '2px solid rgb(255, 0, 0)' : null,
 	          width: this.props.furigana.w + '%',
 	          height: this.props.furigana.h + '%',
 	          left: this.props.furigana.x + '%',
@@ -36689,14 +37134,109 @@
 	exports.default = FuriganaBlocker;
 
 /***/ },
-/* 249 */
+/* 251 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 	module.exports = {"furiganaBlocker":"furigana_blocker__furiganaBlocker___2jZda","hidden":"furigana_blocker__hidden___k49t8"};
 
 /***/ },
-/* 250 */
+/* 252 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _classnames = __webpack_require__(231);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _new_furigana_blocker = __webpack_require__(253);
+
+	var _new_furigana_blocker2 = _interopRequireDefault(_new_furigana_blocker);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var NewFuriganaBlocker = function (_React$Component) {
+	  _inherits(NewFuriganaBlocker, _React$Component);
+
+	  function NewFuriganaBlocker() {
+	    _classCallCheck(this, NewFuriganaBlocker);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(NewFuriganaBlocker).apply(this, arguments));
+	  }
+
+	  _createClass(NewFuriganaBlocker, [{
+	    key: 'render',
+	    value: function render() {
+	      var left = parseFloat(this.props.left);
+	      var top = parseFloat(this.props.top);
+	      var width = parseFloat(this.props.width);
+	      var height = parseFloat(this.props.height);
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        width > 0 ? _react2.default.createElement('div', { className: (0, _classnames2.default)(_new_furigana_blocker2.default.blocker),
+	          style: {
+	            right: 100 - left + '%',
+	            bottom: 0,
+	            left: 0,
+	            top: 0
+	          } }) : null,
+	        width > 0 ? _react2.default.createElement('div', { className: (0, _classnames2.default)(_new_furigana_blocker2.default.blocker),
+	          style: {
+	            right: 0,
+	            bottom: 0,
+	            left: left + width + '%',
+	            top: 0
+	          } }) : null,
+	        height > 0 ? _react2.default.createElement('div', { className: (0, _classnames2.default)(_new_furigana_blocker2.default.blocker),
+	          style: {
+	            right: 0,
+	            bottom: 100 - top + '%',
+	            left: 0,
+	            top: 0
+	          } }) : null,
+	        height > 0 ? _react2.default.createElement('div', { className: (0, _classnames2.default)(_new_furigana_blocker2.default.blocker),
+	          style: {
+	            right: 0,
+	            bottom: 0,
+	            left: 0,
+	            top: top + height + '%'
+	          } }) : null
+	      );
+	    }
+	  }]);
+
+	  return NewFuriganaBlocker;
+	}(_react2.default.Component);
+
+	exports.default = NewFuriganaBlocker;
+
+/***/ },
+/* 253 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+	module.exports = {"blocker":"new_furigana_blocker__blocker___3IRUn"};
+
+/***/ },
+/* 254 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -36715,7 +37255,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _vocab_segment_selector = __webpack_require__(251);
+	var _vocab_segment_selector = __webpack_require__(255);
 
 	var _vocab_segment_selector2 = _interopRequireDefault(_vocab_segment_selector);
 
@@ -36769,21 +37309,21 @@
 	exports.default = VocabSegmentSelector;
 
 /***/ },
-/* 251 */
+/* 255 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 	module.exports = {"vocabSegmentSelector":"vocab_segment_selector__vocabSegmentSelector___1s8Zz","selected":"vocab_segment_selector__selected___1nOJm"};
 
 /***/ },
-/* 252 */
+/* 256 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 	module.exports = {"pageScan":"page_scan__pageScan___1eWuU","sizeWrapper":"page_scan__sizeWrapper___1Zh7O","image":"page_scan__image___dNoWn"};
 
 /***/ },
-/* 253 */
+/* 257 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -36802,7 +37342,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _tell_people_overlay = __webpack_require__(254);
+	var _tell_people_overlay = __webpack_require__(258);
 
 	var _tell_people_overlay2 = _interopRequireDefault(_tell_people_overlay);
 
@@ -36880,14 +37420,14 @@
 	exports.default = TellPeopleOverlay;
 
 /***/ },
-/* 254 */
+/* 258 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 	module.exports = {"overlay":"tell_people_overlay__overlay___2czdB","content":"tell_people_overlay__content___2jTuf","header":"tell_people_overlay__header___1TKqB","text":"tell_people_overlay__text___igx43","twitterButton":"tell_people_overlay__twitterButton___QkQZt"};
 
 /***/ },
-/* 255 */
+/* 259 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -36910,11 +37450,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _chapter_view = __webpack_require__(256);
+	var _chapter_view = __webpack_require__(260);
 
 	var _chapter_view2 = _interopRequireDefault(_chapter_view);
 
-	var _series_browser = __webpack_require__(258);
+	var _series_browser = __webpack_require__(264);
 
 	var _series_browser2 = _interopRequireDefault(_series_browser);
 
@@ -36998,7 +37538,7 @@
 	exports.default = SeriesBrowser;
 
 /***/ },
-/* 256 */
+/* 260 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -37021,7 +37561,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _chapter_view = __webpack_require__(257);
+	var _page_thumbnail = __webpack_require__(261);
+
+	var _page_thumbnail2 = _interopRequireDefault(_page_thumbnail);
+
+	var _chapter_view = __webpack_require__(263);
 
 	var _chapter_view2 = _interopRequireDefault(_chapter_view);
 
@@ -37036,29 +37580,16 @@
 	var ChapterView = function (_React$Component) {
 	  _inherits(ChapterView, _React$Component);
 
-	  function ChapterView(props) {
+	  function ChapterView() {
 	    _classCallCheck(this, ChapterView);
 
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ChapterView).call(this, props));
-
-	    _this.state = { pages: null };
-	    return _this;
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(ChapterView).apply(this, arguments));
 	  }
 
 	  _createClass(ChapterView, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      var _this2 = this;
-
-	      _jquery2.default.get('/api/' + this.props.series + '/' + this.props.chapter.number, function (res) {
-	        console.log(res);
-	        _this2.setState({ pages: res.data.pages });
-	      });
-	    }
-	  }, {
 	    key: 'render',
 	    value: function render() {
-	      var _this3 = this;
+	      var _this2 = this;
 
 	      var chapter = this.props.chapter;
 	      return _react2.default.createElement(
@@ -37078,19 +37609,16 @@
 	            chapter.title.jp.kana == chapter.title.jp.common ? '' : '（' + chapter.title.jp.kana + '）'
 	          )
 	        ),
-	        !!this.state.pages ? _react2.default.createElement(
+	        _react2.default.createElement(
 	          'div',
 	          { className: (0, _classnames2.default)(_chapter_view2.default.pageList) },
-	          this.state.pages.map(function (page) {
-	            return _react2.default.createElement('a', {
-	              className: (0, _classnames2.default)(_chapter_view2.default.pageThumbnail),
-	              key: 'pageThumbnail-' + _this3.props.series + '-' + page.chapter + '-' + page.page,
-	              href: '/' + _this3.props.series + '/' + page.chapter + '/' + page.page,
-	              style: {
-	                backgroundImage: 'url(/data/images/' + _this3.props.series + '/' + page.chapter + '_' + page.page + '.jpg)'
-	              } });
+	          chapter.pages.map(function (page) {
+	            return _react2.default.createElement(_page_thumbnail2.default, {
+	              series: _this2.props.series,
+	              page: page,
+	              key: 'pageThumbnail-' + _this2.props.series + '-' + page.chapter + '-' + page.page });
 	          })
-	        ) : null
+	        )
 	      );
 	    }
 	  }]);
@@ -37101,18 +37629,339 @@
 	exports.default = ChapterView;
 
 /***/ },
-/* 257 */
+/* 261 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _classnames = __webpack_require__(231);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	var _jquery = __webpack_require__(1);
+
+	var _jquery2 = _interopRequireDefault(_jquery);
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _page_thumbnail = __webpack_require__(262);
+
+	var _page_thumbnail2 = _interopRequireDefault(_page_thumbnail);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var PageThumbnail = function (_React$Component) {
+	  _inherits(PageThumbnail, _React$Component);
+
+	  function PageThumbnail() {
+	    _classCallCheck(this, PageThumbnail);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(PageThumbnail).apply(this, arguments));
+	  }
+
+	  _createClass(PageThumbnail, [{
+	    key: 'render',
+	    value: function render() {
+	      var page = this.props.page;
+	      var opacity = page.status == 'COMPLETE' ? 1 : page.status == 'NEW' ? 0.4 : 0.7;
+	      return _react2.default.createElement(
+	        'div',
+	        { className: (0, _classnames2.default)(_page_thumbnail2.default.pageThumbnail) },
+	        _react2.default.createElement('a', {
+	          className: (0, _classnames2.default)(_page_thumbnail2.default.image),
+	          key: 'pageThumbnail-' + this.props.series + '-' + page.chapter + '-' + page.page,
+	          href: '/' + this.props.series + '/' + page.chapter + '/' + page.page,
+	          style: {
+	            backgroundImage: 'url(/data/images/' + this.props.series + '/' + page.chapter + '_' + page.page + '.jpg)',
+	            opacity: opacity
+	          } }),
+	        _react2.default.createElement(
+	          'label',
+	          { className: (0, _classnames2.default)(_page_thumbnail2.default.label) },
+	          'p',
+	          page.page,
+	          ': ',
+	          page.status
+	        )
+	      );
+	    }
+	  }]);
+
+	  return PageThumbnail;
+	}(_react2.default.Component);
+
+	exports.default = PageThumbnail;
+
+/***/ },
+/* 262 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
-	module.exports = {"chapter":"chapter_view__chapter___y-j7y","header":"chapter_view__header___2Nyz_","subJp":"chapter_view__subJp___2LhZA","pageThumbnail":"chapter_view__pageThumbnail___I9xXH"};
+	module.exports = {"pageThumbnail":"page_thumbnail__pageThumbnail___2IkM8","image":"page_thumbnail__image___3uMxa","label":"page_thumbnail__label___1m7Kc"};
 
 /***/ },
-/* 258 */
+/* 263 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+	module.exports = {"chapter":"chapter_view__chapter___y-j7y","header":"chapter_view__header___2Nyz_","subJp":"chapter_view__subJp___2LhZA","pageList":"chapter_view__pageList___3UnFc"};
+
+/***/ },
+/* 264 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 	module.exports = {"browser":"series_browser__browser___1IuwE","header":"series_browser__header___xDoaV","subJp":"series_browser__subJp___7ycXH"};
+
+/***/ },
+/* 265 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
+	 * JavaScript Cookie v2.1.2
+	 * https://github.com/js-cookie/js-cookie
+	 *
+	 * Copyright 2006, 2015 Klaus Hartl & Fagner Brack
+	 * Released under the MIT license
+	 */
+	;(function (factory) {
+		if (true) {
+			!(__WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.call(exports, __webpack_require__, exports, module)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));
+		} else if (typeof exports === 'object') {
+			module.exports = factory();
+		} else {
+			var OldCookies = window.Cookies;
+			var api = window.Cookies = factory();
+			api.noConflict = function () {
+				window.Cookies = OldCookies;
+				return api;
+			};
+		}
+	}(function () {
+		function extend () {
+			var i = 0;
+			var result = {};
+			for (; i < arguments.length; i++) {
+				var attributes = arguments[ i ];
+				for (var key in attributes) {
+					result[key] = attributes[key];
+				}
+			}
+			return result;
+		}
+
+		function init (converter) {
+			function api (key, value, attributes) {
+				var result;
+				if (typeof document === 'undefined') {
+					return;
+				}
+
+				// Write
+
+				if (arguments.length > 1) {
+					attributes = extend({
+						path: '/'
+					}, api.defaults, attributes);
+
+					if (typeof attributes.expires === 'number') {
+						var expires = new Date();
+						expires.setMilliseconds(expires.getMilliseconds() + attributes.expires * 864e+5);
+						attributes.expires = expires;
+					}
+
+					try {
+						result = JSON.stringify(value);
+						if (/^[\{\[]/.test(result)) {
+							value = result;
+						}
+					} catch (e) {}
+
+					if (!converter.write) {
+						value = encodeURIComponent(String(value))
+							.replace(/%(23|24|26|2B|3A|3C|3E|3D|2F|3F|40|5B|5D|5E|60|7B|7D|7C)/g, decodeURIComponent);
+					} else {
+						value = converter.write(value, key);
+					}
+
+					key = encodeURIComponent(String(key));
+					key = key.replace(/%(23|24|26|2B|5E|60|7C)/g, decodeURIComponent);
+					key = key.replace(/[\(\)]/g, escape);
+
+					return (document.cookie = [
+						key, '=', value,
+						attributes.expires && '; expires=' + attributes.expires.toUTCString(), // use expires attribute, max-age is not supported by IE
+						attributes.path    && '; path=' + attributes.path,
+						attributes.domain  && '; domain=' + attributes.domain,
+						attributes.secure ? '; secure' : ''
+					].join(''));
+				}
+
+				// Read
+
+				if (!key) {
+					result = {};
+				}
+
+				// To prevent the for loop in the first place assign an empty array
+				// in case there are no cookies at all. Also prevents odd result when
+				// calling "get()"
+				var cookies = document.cookie ? document.cookie.split('; ') : [];
+				var rdecode = /(%[0-9A-Z]{2})+/g;
+				var i = 0;
+
+				for (; i < cookies.length; i++) {
+					var parts = cookies[i].split('=');
+					var cookie = parts.slice(1).join('=');
+
+					if (cookie.charAt(0) === '"') {
+						cookie = cookie.slice(1, -1);
+					}
+
+					try {
+						var name = parts[0].replace(rdecode, decodeURIComponent);
+						cookie = converter.read ?
+							converter.read(cookie, name) : converter(cookie, name) ||
+							cookie.replace(rdecode, decodeURIComponent);
+
+						if (this.json) {
+							try {
+								cookie = JSON.parse(cookie);
+							} catch (e) {}
+						}
+
+						if (key === name) {
+							result = cookie;
+							break;
+						}
+
+						if (!key) {
+							result[name] = cookie;
+						}
+					} catch (e) {}
+				}
+
+				return result;
+			}
+
+			api.set = api;
+			api.get = function (key) {
+				return api(key);
+			};
+			api.getJSON = function () {
+				return api.apply({
+					json: true
+				}, [].slice.call(arguments));
+			};
+			api.defaults = {};
+
+			api.remove = function (key, attributes) {
+				api(key, '', extend(attributes, {
+					expires: -1
+				}));
+			};
+
+			api.withConverter = init;
+
+			return api;
+		}
+
+		return init(function () {});
+	}));
+
+
+/***/ },
+/* 266 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _classnames = __webpack_require__(231);
+
+	var _classnames2 = _interopRequireDefault(_classnames);
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _vocab_editor = __webpack_require__(267);
+
+	var _vocab_editor2 = _interopRequireDefault(_vocab_editor);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var VocabEditor = function (_React$Component) {
+	  _inherits(VocabEditor, _React$Component);
+
+	  function VocabEditor() {
+	    _classCallCheck(this, VocabEditor);
+
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(VocabEditor).apply(this, arguments));
+	  }
+
+	  _createClass(VocabEditor, [{
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { className: (0, _classnames2.default)(_vocab_editor2.default.vocabEditor) },
+	        _react2.default.createElement(
+	          'p',
+	          null,
+	          'The community has finished the furigana blockers for this page, so you can show / hide furigana.'
+	        ),
+	        _react2.default.createElement(
+	          'p',
+	          { className: (0, _classnames2.default)(_vocab_editor2.default.highlight) },
+	          'Unfortunately, the app doesn\'t yet support vocabulary from users, since it\'s still in development. Watch this space, and ',
+	          _react2.default.createElement(
+	            'a',
+	            { href: 'https://reddit.com/r/learnjapanese', target: '_blank' },
+	            '/r/LearnJapanese'
+	          ),
+	          ', for updates!'
+	        )
+	      );
+	    }
+	  }]);
+
+	  return VocabEditor;
+	}(_react2.default.Component);
+
+	exports.default = VocabEditor;
+
+/***/ },
+/* 267 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+	module.exports = {"vocabEditor":"vocab_editor__vocabEditor___2hLBv","highlight":"vocab_editor__highlight___tIkFd"};
 
 /***/ }
 /******/ ]);

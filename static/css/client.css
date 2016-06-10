@@ -7,6 +7,84 @@
 .reader__reader___2zFp8 {
   display: flex;
 }
+.furigana_editor__furiganaEditor___3n_ds {
+  padding: 1rem;
+  width: 100%;
+  font-size: 0.9em;
+  border-bottom: 1px solid rgb(200, 200, 200);
+}
+
+.furigana_editor__highlight___16Zt3 {
+  color: rgb(255, 110, 19);
+}
+
+.furigana_editor__emph___23ZXT {
+  font-weight: 400;
+}
+
+.furigana_editor__currentFuriganaHint___3-eh6 {
+  margin-bottom: 0.75rem;
+}
+.furigana_editor__currentFuriganaList___pg9eB, .furigana_editor__newFuriganaComponents___10EKK {
+  padding: 0;
+}
+.furigana_editor__currentFuriganaElement___pi1tn {
+  list-style-type: none;
+  margin-left: 1rem;
+  margin-bottom: 0.3rem;
+}
+.furigana_editor__furiganaComponent___1zwrZ {
+  list-style-type: none;
+  text-align: right;
+}
+
+.furigana_editor__addHint___3SU07 {
+  margin-top: 0.75rem;
+}
+
+.furigana_editor__addButtonWrapper___2t2wN {
+  text-align: right;
+}
+.furigana_editor__addButton___2azqe, .furigana_editor__goodFuriganaButton___3Pjeh, .furigana_editor__badFuriganaButton___KSoSJ, .furigana_editor__newFuriganaContent___3cFjv, .furigana_editor__approveButton___2d2-I {
+  font: inherit;
+  outline: none;
+  background-color: inherit;
+  border: 1px solid rgb(200, 200, 200);
+  border-radius: 3px;
+  transition: background-color 0.1s linear, opacity 0.1s linear;
+}
+.furigana_editor__addButton___2azqe, .furigana_editor__newFuriganaContent___3cFjv {
+  padding: 0.25rem 0.35rem;
+  margin-top: 1rem;
+}
+.furigana_editor__goodFuriganaButton___3Pjeh, .furigana_editor__badFuriganaButton___KSoSJ {
+  font-size: 0.8em;
+  margin-left: 0.15rem;
+}
+.furigana_editor__goodFuriganaButton___3Pjeh {
+  margin-left: 0.8rem;
+}
+.furigana_editor__addButton___2azqe:disabled, .furigana_editor__goodFuriganaButton___3Pjeh:disabled, .furigana_editor__badFuriganaButton___KSoSJ:disabled, .furigana_editor__approveButton___2d2-I:disabled {
+  opacity: 0.6;
+}
+.furigana_editor__addButton___2azqe:not(:disabled), .furigana_editor__goodFuriganaButton___3Pjeh:not(:disabled), .furigana_editor__badFuriganaButton___KSoSJ:not(:disabled), .furigana_editor__approveButton___2d2-I:not(:disabled) {
+  cursor: pointer;
+}
+.furigana_editor__addButton___2azqe:hover:not(:disabled), .furigana_editor__goodFuriganaButton___3Pjeh:hover:not(:disabled), .furigana_editor__badFuriganaButton___KSoSJ:hover:not(:disabled), .furigana_editor__approveButton___2d2-I:hover:not(:disabled) {
+  background-color: rgb(247, 247, 247);
+}
+.furigana_editor__approveButton___2d2-I {
+  margin-top: 0.5rem;
+}
+
+.furigana_editor__newFuriganaContent___3cFjv {
+  margin-right: 0.3rem;
+  width: 50%;
+}
+
+.furigana_editor__slider___1i4p6 {
+  width: 100%;
+}
 .furigana_toggler__furiganaToggler___3HTtV {
   padding: 1rem;
   width: 100%;
@@ -41,6 +119,38 @@
 
 .info_header__pageTitle___RbCpa {
   margin-top: 1rem;
+  font-size: 1.4em;
+}
+
+.info_header__link___TiR2m {
+  text-decoration: none;
+  font: inherit;
+  color: inherit;
+}
+
+.info_header__paginationButton___3GF6R {
+  font-size: 0.55em;
+  color: inherit;
+  text-decoration: none;
+  margin-top: 1rem;
+  position: relative;
+  top: -0.2rem;
+  outline: none;
+  border: 1px solid rgb(200, 200, 200);
+  border-radius: 3px;
+  padding: 0.15rem 0.35rem;
+  cursor: pointer;
+  transition: background-color 0.1s linear;
+}
+.info_header__paginationButton___3GF6R:hover {
+  background-color: rgb(247, 247, 247);
+}
+
+.info_header__previousButton___3_hqa {
+  margin-right: 0.75rem;
+}
+.info_header__nextButton___1GNfu {
+  margin-left: 0.75rem;
 }
 .tell_people_button__button___zzdyi {
   font: inherit;
@@ -70,6 +180,22 @@
 .vanity_footer__link___eTQWb {
   color: inherit;
   font-weight: 500;
+}
+.vocab_editor__vocabEditor___2hLBv {
+  padding: 1rem;
+  width: 100%;
+  font-size: 0.9em;
+  border-bottom: 1px solid rgb(200, 200, 200);
+}
+
+.vocab_editor__highlight___tIkFd {
+  color: rgb(255, 110, 19);
+}
+
+.vocab_editor__vocabEditor___2hLBv a {
+  color: inherit;
+  text-decoration: none;
+  font-weight: 400;
 }
 .vocab_segment__vocabSegment___2miLR {
   padding: 1rem;
@@ -138,6 +264,10 @@
 }
 .furigana_blocker__hidden___k49t8 {
   opacity: 1;
+}
+.new_furigana_blocker__blocker___3IRUn {
+  position: absolute;
+  background-color: rgba(255, 0, 0, 0.5);
 }
 .vocab_segment_selector__vocabSegmentSelector___1s8Zz {
   position: absolute;
@@ -214,6 +344,38 @@
   transition: background-color 0.1s linear;
   text-decoration: none;
 }
+.page_thumbnail__pageThumbnail___2IkM8 {
+  display: inline-block;
+  margin: 0.2rem;
+  position: relative;
+  top: 0;
+  transition: top 0.1s linear;
+  border-radius: 5px;
+  border: 1px solid rgb(200, 200, 200);
+  flex-basis: 202px;
+}
+.page_thumbnail__pageThumbnail___2IkM8:hover {
+  top: 0.4rem;
+}
+
+.page_thumbnail__image___3uMxa {
+  display: block;
+  /* B5 aspect ratio */
+  height: 284px;
+  width: 200px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.page_thumbnail__label___1m7Kc {
+  display: block;
+  width: 100%;
+  border-top: 1px solid rgb(200, 200, 200);
+  font-size: 0.9em;
+  text-align: right;
+  padding: 0.4rem 0.6rem;
+}
 .chapter_view__chapter___y-j7y {
   margin-top: 1rem;
 }
@@ -227,23 +389,10 @@
   margin-left: 0.4rem;
 }
 
-.chapter_view__pageThumbnail___I9xXH {
-  display: inline-block;
-  /* B5 aspect ratio */
-  height: 284px;
-  width: 200px;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  border-radius: 5px;
-  border: 1px solid rgb(200, 200, 200);
-  margin: 0 0.2rem;
-  position: relative;
-  top: 0;
-  transition: top 0.1s linear;
-}
-.chapter_view__pageThumbnail___I9xXH:hover {
-  top: 0.4rem;
+.chapter_view__pageList___3UnFc {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 .series_browser__browser___1IuwE {
   font-family: 'Noto Sans Japanese', 'Noto Sans', sans-serif;
