@@ -9,8 +9,8 @@ const path = require('path')
 const package = require('./package.json')
 
 const PORT = 8000
-const FURIGANA_VOTES_BASE = -10
-const FURIGANA_UNPOPULAR_DROP_THRESHOLD = -2
+const FURIGANA_VOTES_BASE = -5
+const FURIGANA_UNPOPULAR_DROP_THRESHOLD = -1
 
 const app = express()
 nunjucks.configure({
