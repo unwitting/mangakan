@@ -63,7 +63,7 @@ function getPage(series, chapter, page) {
 function writePage(series, chapter, page, data) {
   log(`${colors.green('Writing')} new page data for chapter ${colors.cyan(chapter)}, page ${colors.cyan(page)} of series: ${colors.cyan(series)}`)
   fs.writeFileSync(path.join(__dirname, 'data', 'json', series, `${chapter}_${page}.json`), JSON.stringify(data, undefined, 2))
-  getPageCacheKill()
+  getPageCacheKill(series, chapter, page)
 }
 
 const getPagesCache = {}
