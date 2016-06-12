@@ -23,6 +23,7 @@ export default class Reader extends React.Component {
       newFuriganaWidth: 0,
       newFuriganaHeight: 0,
       newFuriganaContent: '',
+      newFuriganaGrey: 0,
       furiganaVoted: [],
       furiganaApproved: false,
       highlightedFurigana: null,

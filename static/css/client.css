@@ -269,6 +269,10 @@
   position: absolute;
   background-color: rgba(255, 0, 0, 0.5);
 }
+
+.new_furigana_blocker__blockerInner___sL8ME {
+  position: absolute;
+}
 .vocab_segment_selector__vocabSegmentSelector___1s8Zz {
   position: absolute;
   border-width: 2px;

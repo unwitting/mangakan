@@ -170,9 +170,10 @@ app.post('/api/add_furigana/:series/:chapter/:page', (req, res) => {
   const w = req.body.width
   const h = req.body.height
   const content = req.body.content
+  const color = req.body.color
   if (
-    typeof x != 'number' || typeof y != 'number' || typeof w != 'number' || typeof h != 'number' ||
-    typeof content != 'string' ||
+    typeof x !== 'number' || typeof y !== 'number' || typeof w !== 'number' || typeof h !== 'number' ||
+    typeof content !== 'string' || typeof color !== 'string' ||
     x < 0 || x >= 100 || y < 0 || y >= 100 || w <= 0 || w >= 100 || h <=0 || h >= 100 ||
     x + w >= 100 || y + h >= 100 ||
     content.length <= 0
@@ -188,7 +189,7 @@ app.post('/api/add_furigana/:series/:chapter/:page', (req, res) => {
   }
   page.furigana.push({
     content: content,
-    color: 'rgb(0, 0, 0)',
+    color: color,
     x, y, w, h,
     votes: 0,
   })

@@ -10,6 +10,7 @@ export default class FuriganaEditor extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      furiganaClicked: null,
       furiganaVoted: []
     }
   }
@@ -55,11 +56,21 @@ export default class FuriganaEditor extends React.Component {
     this.props.reader.setState({newFuriganaContent: e.target.value})
   }
 
+  handleFuriganaGreyChange(e) {
+    this.props.reader.setState({newFuriganaGrey: parseInt(e.target.value)})
+  }
+
   handleFuriganaElementEnter(furiganaI) {
     this.props.reader.setState({highlightedFurigana: furiganaI})
   }
   handleFuriganaElementLeave(furiganaI) {
-    this.props.reader.setState({highlightedFurigana: null})
+    const newHighlighted = (this.state.furiganaClicked !== null ? this.state.furiganaClicked : null)
+    this.props.reader.setState({highlightedFurigana: newHighlighted})
+  }
+  handleFuriganaClick(furiganaI) {
+    const newSelected = (this.state.furiganaClicked == furiganaI ? null : furiganaI)
+    this.setState({furiganaClicked: newSelected})
+    this.props.reader.setState({highlightedFurigana: newSelected})
   }
 
   handleFuriganaElementUpvote(furiganaI) {
@@ -107,6 +118,7 @@ export default class FuriganaEditor extends React.Component {
         width: parseFloat(readerState.newFuriganaWidth),
         height: parseFloat(readerState.newFuriganaHeight),
         content: readerState.newFuriganaContent,
+        color: `rgb(${readerState.newFuriganaGrey}, ${readerState.newFuriganaGrey}, ${readerState.newFuriganaGrey})`,
       }),
       contentType: 'application/json',
       dataType: 'json',
@@ -117,6 +129,8 @@ export default class FuriganaEditor extends React.Component {
           newFuriganaTop: 0,
           newFuriganaWidth: 0,
           newFuriganaHeight: 0,
+          newFuriganaContent: '',
+          newFuriganaGrey: 0,
         })
       },
     })
@@ -153,16 +167,17 @@ export default class FuriganaEditor extends React.Component {
           <p className={classnames(c.currentFuriganaHint)}>
             These are the furigana blockers defined so far.
             &nbsp;Take a look at each, and tell us if it's good or bad.
-            &nbsp;<span className={classnames(c.emph)}>Bad</span> means not covering the furigana, covering it too broadly, blocking non-furigana, or <span className={classnames(c.emph)}>content not matching the page</span>.
+            &nbsp;<span className={classnames(c.emph)}>Bad</span> means not covering the furigana, covering it too broadly, blocking non-furigana, content not matching the page, or the blocker being a bad color for its background.
           </p>
           {furigana.map((f, i) => {
             const voted = readerState.furiganaVoted.indexOf(i) !== -1
             return (
               <li
-                className={classnames(c.currentFuriganaElement)}
+                className={classnames(c.currentFuriganaElement, {[c.emph]: this.state.furiganaClicked === i})}
                 key={`furigana-element-${i}`}
                 onMouseEnter={this.handleFuriganaElementEnter.bind(this, i)}
-                onMouseLeave={this.handleFuriganaElementLeave.bind(this, i)}>
+                onMouseLeave={this.handleFuriganaElementLeave.bind(this, i)}
+                onClick={this.handleFuriganaClick.bind(this, i)}>
                 Content <span className={classnames(c.emph)}>「{f.content}」</span>
                 {/*{f.votes}*/}
                 <button
@@ -199,6 +214,10 @@ export default class FuriganaEditor extends React.Component {
           <li className={classnames(c.furiganaComponent)}>
             Top<br/>
             <input className={classnames(c.slider)} type='range' step={0.1} min={0} max={100 - readerState.newFuriganaHeight} value={readerState.newFuriganaTop} onChange={this.handleFuriganaTopChange.bind(this)} />
+          </li>
+          <li className={classnames(c.furiganaComponent)}>
+            Grey<br/>
+            <input className={classnames(c.slider)} type='range' step={1} min={0} max={255} value={readerState.newFuriganaGrey} onChange={this.handleFuriganaGreyChange.bind(this)} />
           </li>
           <div className={classnames(c.addButtonWrapper)}>
             <input

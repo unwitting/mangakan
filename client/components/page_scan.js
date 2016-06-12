@@ -17,6 +17,7 @@ export default class PageScan extends React.Component {
     const newFuriT = this.props.reader.state.newFuriganaTop
     const newFuriW = this.props.reader.state.newFuriganaWidth
     const newFuriH = this.props.reader.state.newFuriganaHeight
+    const newFuriGrey = this.props.reader.state.newFuriganaGrey
     const renderNewFurigana = !(
       newFuriL == 0 && newFuriT == 0 && newFuriW == 0 && newFuriH == 0
     )
@@ -27,7 +28,7 @@ export default class PageScan extends React.Component {
           {!!page.furigana ? page.furigana.map((furigana, i) => (
             <FuriganaBlocker key={`furigana-blocker-${i}`} furigana={furigana} highlighted={i == this.props.reader.state.highlightedFurigana} {...this.props} />
           )) : null}
-          {renderNewFurigana ? <NewFuriganaBlocker {...this.props} left={newFuriL} top={newFuriT} width={newFuriW} height={newFuriH} /> : null}
+          {renderNewFurigana ? <NewFuriganaBlocker {...this.props} left={newFuriL} top={newFuriT} width={newFuriW} height={newFuriH} grey={newFuriGrey} /> : null}
           {!!page.vocabSegments ? page.vocabSegments.map((vocabSegment, i) => (
             <VocabSegmentSelector
               key={`vocabSegment-selector-${i}`}
